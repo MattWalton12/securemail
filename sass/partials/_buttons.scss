@@ -1,0 +1,20 @@
+.btn {
+  border:0;
+  background-color:#79B9FF;
+
+  padding:10px 20px 10px 20px;
+
+  font-size:0.9em;
+
+  &.block {
+    display:block;
+    width:100%;
+  }
+
+  transition: background-color 0.3s ease-out;
+
+  &:hover {
+    background-color:darken(#79B9FF, 10%);
+    cursor:pointer;
+  }
+}

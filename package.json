@@ -1,0 +1,22 @@
+{
+  "name": "computing-project",
+  "version": "1.0.0",
+  "description": "My A-Level computing project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Walton",
+  "license": "ISC",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.16.0",
+    "colors": "^1.1.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "mysql": "^2.13.0",
+    "node-forge": "^0.7.0",
+    "ursa": "^0.9.4"
+  }
+}

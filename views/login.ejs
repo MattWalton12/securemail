@@ -1,0 +1,51 @@
+<% title = "Login" %>
+
+<% include partials/header %>
+
+<body>
+  <section class="login-title">
+    <h1><img src="/static/images/Lock-32.png">SecureMail.</h1>
+  </section>
+
+  <section class="login-container">
+    <p id="register">No account yet? <a href="/register">Click here to register</a></p>
+
+    <form action="/login" method="POST" id="login_form">
+      <div class="form-container">
+        <div class="form-element">
+          <!--<label for="login-username">Username</label>-->
+          <input name="username" id="login-username" placeholder="Username">
+        </div>
+
+        <div class="form-element">
+          <!--<label for="login-password">Password</label>-->
+          <input name="password" type="password" id="login-password" placeholder="Password">
+        </div>
+
+        <div class="form-section large">
+          <button type="submit" class="btn block" id="login_button">Login</button>
+
+          <img src="/static/images/ring-alt.svg" alt="Logging in..." id="login_spinner" class="hidden">
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <form action="/login/response" method="POST" id="response_form">
+    <input type="hidden" name="token" id="response_token">
+    <input type="hidden" name="user" id="response_user">
+  </form>
+
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/login.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/login.css">
+  <script src="/static/js/vendor/jquery-3.1.1.min.js"></script>
+  <script src="/static/js/vendor/forge.min.js"></script>
+  <script src="/static/js/vendor/triplesec.min.js"></script>
+
+  <script src="/static/js/securemail.js"></script>
+  <script src="/static/js/crypto.securemail.js"></script>
+
+  <script src="/static/js/pages/login.js"></script>
+</body>
+
+<% include partials/footer %>

@@ -1,0 +1,37 @@
+@import "compass/reset";
+@import "modules/colors";
+@import "partials/forms";
+@import "partials/buttons";
+
+body, html {
+  background-color: $color-background;
+  font-family:"Roboto", sans-serif;
+  color:#4c4c4c;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Roboto Slab", sans-serif;
+  color:#2C91FF;
+}
+
+h1 {
+  font-size:2em;
+}
+h2 {
+  font-family:"Roboto", sans-serif;
+  font-weight:bold;
+  font-size:1.6em;
+}
+
+a {
+  color:#2374CC;
+  text-decoration:none;
+
+  &:hover {
+    text-decoration:underline;
+  }
+}
+
+.hidden {
+  display:none;
+}

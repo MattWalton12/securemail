@@ -1,0 +1,109 @@
+/* line 1, ../../sass/interface.scss */
+body, html {
+  background-color: #efefef;
+}
+
+/* line 5, ../../sass/interface.scss */
+.sidebar {
+  position: fixed;
+  z-index: 999;
+  width: 300px;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: #3C5C7F;
+  border-right: 1px solid #2c435c;
+}
+/* line 18, ../../sass/interface.scss */
+.sidebar h1 {
+  color: #79B9FF;
+  line-height: 32px;
+}
+/* line 22, ../../sass/interface.scss */
+.sidebar h1 img {
+  margin-right: 5px;
+}
+
+/* line 28, ../../sass/interface.scss */
+.content-container {
+  box-sizing: border-box;
+  padding-left: 300px;
+}
+/* line 32, ../../sass/interface.scss */
+.content-container .topbar {
+  width: 100%;
+  height: 70px;
+  background-color: #3C5C7F;
+  z-index: 998;
+}
+/* line 38, ../../sass/interface.scss */
+.content-container .topbar .search-input-container {
+  margin-left: 9px;
+  padding-top: 17px;
+}
+/* line 43, ../../sass/interface.scss */
+.content-container .topbar .search-input {
+  display: block;
+  padding: 7px;
+  font-size: 0.9em;
+  margin-left: 15px;
+  width: 500px;
+  border-radius: 3px;
+  border: 1px solid #2c435c;
+}
+/* line 55, ../../sass/interface.scss */
+.content-container .email-list {
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  top: 0;
+  padding-top: 80px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  width: 800px;
+}
+/* line 66, ../../sass/interface.scss */
+.content-container .email-list .emails {
+  border-top: 1px solid #bbb;
+}
+/* line 70, ../../sass/interface.scss */
+.content-container .email-list .email {
+  display: block;
+  border-bottom: 1px solid #bbb;
+  padding: 20px;
+  transition: background 0.2s ease-out;
+  color: #555;
+}
+/* line 79, ../../sass/interface.scss */
+.content-container .email-list .email.unread {
+  background-color: #fff;
+}
+/* line 82, ../../sass/interface.scss */
+.content-container .email-list .email.unread .subject {
+  font-weight: 500;
+}
+/* line 88, ../../sass/interface.scss */
+.content-container .email-list .email:hover {
+  text-decoration: none;
+  background-color: #79B9FF;
+}
+/* line 95, ../../sass/interface.scss */
+.content-container .email-list .email .from {
+  display: inline-block;
+  font-size: 0.8em;
+  line-height: 1em;
+  width: 210px;
+}
+/* line 102, ../../sass/interface.scss */
+.content-container .email-list .email .subject {
+  display: inline-block;
+  font-size: 1em;
+  width: 400px;
+}
+/* line 108, ../../sass/interface.scss */
+.content-container .email-list .email .date {
+  text-align: right;
+  display: inline-block;
+  width: 140px;
+  font-size: 0.8em;
+}

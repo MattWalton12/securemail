@@ -1,0 +1,45 @@
+<% title = "Register" %>
+
+<% include partials/header %>
+
+<body>
+  <section class="login-title">
+    <h1><img src="/static/images/Lock-32.png">SecureMail.</h1>
+  </section>
+
+  <section class="login-container">
+    <p id="register">Already have an account? <a href="/login">Click here to login</a></p>
+
+    <form action="/register" method="POST">
+      <div class="form-container">
+        <div class="form-element">
+          <label for="register-username">Username</label>
+          <input name="username" id="login-username" placeholder="this will also be your email address, no spaces or special characters please">
+        </div>
+
+        <div class="form-element">
+          <label for="register-password">Password</label>
+          <input name="password" type="password" id="login-password" placeholder="a secure password (at least 8 characters & some special characters)">
+        </div>
+
+        <div class="form-element">
+          <label for="register-password-confirm">Confirm password</label>
+          <input name="password" type="password" id="login-password-confirm" placeholder="please be sure you can remember this, without it your emails are gone">
+        </div>
+
+        <div class="form-section large">
+          <button type="submit" class="btn block">Register</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/login.css">
+  <script src="/static/js/vendor/jquery-3.1.1.min.js"></script>
+  <script src="/static/js/vendor/forge.min.js"></script>
+  <script src="/static/js/vendor/triplesec.min.js"></script>
+  <script src="/static/js/securemail.js"></script>
+  <script src="/static/js/crypto.securemail.js"></script>
+</body>
+
+<% include partials/footer %>

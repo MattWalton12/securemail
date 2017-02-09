@@ -1,0 +1,32 @@
+.form-element {
+  display:block;
+  margin-top:15px;
+
+  label {
+    display:block;
+    margin-bottom:3px;
+  }
+
+  input {
+    display:block;
+    width:100%;
+    padding:7px;
+
+    box-sizing:border-box;
+
+    border:1px solid saturate(#3C5C7F, 90%);
+    border-radius:2px;
+  }
+}
+
+.form-section {
+  margin-top:10px;
+
+  &.large {
+    margin-top:20px;
+  }
+}
+
+.form-container {
+  margin-top:20px;
+}
