@@ -1,10 +1,17 @@
 const tls = require("tls"),
-  fs = require("fs");
+  fs = require("fs"),
+  config = require("./../../config.json")
+
+let Email = require("./Email.js");
 
 const AcceptedCommands = [
   "EHLO",
   "HELO",
-  "STARTTLS"
+  "STARTTLS",
+  "MAIL",
+  "RCPT",
+  "DATA",
+  "QUIT"
 ]
 
 class SMTPConnection {
@@ -24,7 +31,6 @@ class SMTPConnection {
 
   response(code, data) {
     this._socket.write(code.toString() + " " + data + "\r\n")
-    console.log(code.toString() + " " + data + "\r\n")
   }
 
   write(data) {
@@ -36,12 +42,28 @@ class SMTPConnection {
   }
 
   dataHandler(data) {
-    console.log("got data")
-    console.log(data.toString());
-
     if (this.status == 1) {
       this.command(data.toString());
+    } else if (this.status == 2) {
+      if (!this.email.parser.pipe(data.toString())) {
+        this.status = 1;
+
+        console.log("-----DONE-----")
+
+        this.email.parser.parse();
+        this.email.parser.extract(function(err, meta, body) {
+          console.log(err);
+          console.log(meta);
+          console.log(body);
+        })
+
+        this.ok();
+      }
     }
+  }
+
+  ok() {
+    this.response(250, "OK");
   }
 
   command(data) {
@@ -49,12 +71,13 @@ class SMTPConnection {
     let commandData = data.split(" ")
     let cmd = commandData[0].trim().toUpperCase();
 
-    console.log("new cmd", cmd)
 
     if (AcceptedCommands.indexOf(cmd) != -1) {
-      console.log("done")
       commandData.splice(0, 1);
       this["cmd_" + cmd](commandData);
+
+    } else {
+      this.response(502, "Command not implemented")
     }
   }
 
@@ -63,12 +86,17 @@ class SMTPConnection {
       this.writeLine("250-SIZE 100000");
       this.writeLine("250-STARTTLS");
       this.writeLine("250-HELP");
-      this.response(250, "smtp.securemail.com ready");
+      this.response(250, config.domain + " ready");
+
+      this.domain = params[0];
+
+    } else {
+      this.response(501, "Invalid domain specified, closing connection");
+      this._socket.destroy()
     }
   }
 
   cmd_STARTTLS(params) {
-    console.log("upgrading to tls");
     this.response(220, "ready to start TLS");
 
     let secureContext = this._server.secureContext.get("default");
@@ -87,7 +115,6 @@ class SMTPConnection {
 
     tlsSocket.on("secureConnection", () => {
       this.secure = true;
-      console.log("upgraded to secure connection bby!!")
 
       tlsSocket.on("data", (data) => {
         this.dataHandler(data);
@@ -97,14 +124,66 @@ class SMTPConnection {
     })
   }
 
+  cmd_MAIL(params) {
+
+    if (!this.domain) {
+      return this.response(503, "Be polite, say EHLO first!")
+    }
+
+    if (!params[0]) {
+      return this.response(501, "Invalid from parameters")
+    }
+
+    let paramSplit = params[0].split(":")
+
+    if (paramSplit.length < 2) {
+      this.response(501, "Invalid from parameters")
+    } else {
+
+      this.email = new Email()
+      this.email.setSender(paramSplit[1])
+
+      this.ok()
+    }
+  }
+
+  cmd_RCPT(params) {
+    if (!this.email) {
+      return this.response(503, "Use MAIL command first")
+    }
+
+    let paramSplit = params[0].split(":")
+
+    if (paramSplit.length < 2) {
+      this.response(501, "Invalid to parameters")
+    } else {
+      this.email.addRecipient(paramSplit[1], (err) => {
+        if (err) {
+          this.response(550, "The user account specified does not exist")
+        } else {
+          this.ok()
+        }
+      })
+    }
+  }
+
+  cmd_DATA(params) {
+    if (this.email && this.email.recipients.length > 0) {
+      this.status = 2
+      this.response(354, "Start mail input; end with <CRLF>.<CRLF>")
+    } else {
+      this.response(503, "Use MAIL & RCPT first")
+    }
+  }
+
+  cmd_QUIT() {
+    this.response(221, config.domain + " closing transmission channel - bye!")
+    this._socket.destroy();
+  }
+
   welcome() {
     this.response(220, "smtp.securemail.com ESMTP securemail v1.0")
   }
 }
 
 module.exports = SMTPConnection
-
-/*
-
-v
-*/
