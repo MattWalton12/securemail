@@ -31,6 +31,14 @@
   }
 }
 
+.loading-container {
+  text-align:center;
+  p {
+    margin-top:10px;
+    font-size:0.8em;
+  }
+}
+
 #login_spinner {
   display:hidden;
   margin-left:auto;

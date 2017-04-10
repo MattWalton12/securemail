@@ -60,19 +60,25 @@ sm.users.register = function(username, password, cb) {
   sm.crypto.generateKeypair(function(err, publicKey, privateKey) {
     newUser.setKeys(publicKey, privateKey);
 
-    sm.crypto.encryptPrivateKey(privateKey, password, function(err, encryptedPrivate) {
+    sm.crypto.exportKeys(publicKey, privateKey, password, function(err, publicKey, encryptedPrivate) {
       var postData = {
         username: newUser.username,
         publicKey: publicKey,
         privateKey: encryptedPrivate
       }
 
+      console.log(postData);
+
       $.ajax("/register", {
         data: JSON.stringify(postData),
         contentType: "application/json",
         type: "POST",
         success: function(data) {
-          console.log(data);
+          if (data.status == "success") {
+            cb();
+          } else {
+            cb(new Error(data.error));
+          }
         }
       });
     });

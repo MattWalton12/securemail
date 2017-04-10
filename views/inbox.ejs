@@ -9,7 +9,12 @@
     </div>
   </section>
 
-  <div class="content-container">
+  <div class="content-container content-loader">
+    <p>Decrypting keys...</p>
+    <img src="/static/images/ring-alt.svg" alt="Decrypting keys.." id="loader_spinner">
+  </div>
+
+  <div class="content-container main hidden">
     <section class="topbar">
       <div class="search-input-container">
         <form action="#" method="POST" id="search-form">
@@ -18,153 +23,65 @@
       </div>
     </section>
 
+    <div class="list-overlay">
+    </div>
+
     <section class="email-list">
+
       <ul class="emails">
-        <li>
-          <a class="email unread" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email unread" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email unread" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email unread" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email unread" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
-        <li>
-          <a class="email" href="#">
-            <span class="from">john@johndoe.com</span>
-            <span class="subject">Ollie is gay</span>
-            <span class="date">3:20PM</span>
-          </a>
-        </li>
+        <h3>No emails found</h3>
       </ul>
     </section>
+
+    <div class="email-view-container">
+      <section class="email-view">
+        <div class="email-header">
+          <div class="email-details">
+            <h2 class="subject" id="email-view-subject">First email</h2>
+            <span class="from" id="email-view-from">m@ttwalton.com</span>
+            <span class="date" id="email-view-date">10/12/2015</span>
+          </div>
+          <div class="email-controls">
+            <a href="#"><img src="/static/images/Reply-32.png" alt="Reply" title="Reply"></a>
+            <a href="#"><img src="/static/images/Forward-32.png" alt="Forward" title="Forward"></a>
+            <a href="#"><img src="/static/images/Mail-Delete-32.png" alt="Delete" title="Delete"></a>
+          </div>
+        </div>
+
+
+        <div class="email-content" id="email-view-content">
+
+        </div>
+        </div>
+      </section>
+    </div>
   </div>
+
+  <div class="content-container password-prompt-container">
+    <div class="password-prompt">
+      <div class="prompt-header">
+        <h2>Confirm your password</h2>
+      </div>
+
+      <form action="#" id="password-prompt-form">
+        <input type="password" id="password-prompt">
+        <button type="submit">Continue</button>
+      </form>
+
+    </div>
+  </div>
+
+
   <link rel="stylesheet" type="text/css" href="/static/stylesheets/interface.css">
 
+  <script src="/static/js/vendor/jquery-3.1.1.min.js"></script>
+  <script src="/static/js/vendor/forge.min.js"></script>
+  <script src="/static/js/vendor/triplesec.min.js"></script>
+  <script src="/static/js/securemail.js"></script>
+  <script src="/static/js/inbox.securemail.js"></script>
+  <script src="/static/js/crypto.securemail.js"></script>
+
+  <script src="/static/js/pages/inbox.js"></script>
 </body>
 
 

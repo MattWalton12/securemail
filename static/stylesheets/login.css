@@ -32,6 +32,16 @@
 }
 
 /* line 34, ../../sass/login.scss */
+.loading-container {
+  text-align: center;
+}
+/* line 36, ../../sass/login.scss */
+.loading-container p {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+
+/* line 42, ../../sass/login.scss */
 #login_spinner {
   display: hidden;
   margin-left: auto;

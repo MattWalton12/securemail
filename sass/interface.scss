@@ -25,9 +25,100 @@ body, html {
   }
 }
 
+.email-view-container {
+  width:550px;
+  height:100%;
+  padding-top:80px;
+  position:absolute;
+  right:0px;
+  top:0px;
+  box-sizing:border-box;
+  overflow-x:hidden;
+  padding-left:550px;
+
+  transition:padding 0.2s ease-out, width 0.2s ease-out;
+
+  &.extended {
+    padding-top:10px;
+    width:1100px;
+  }
+}
+
+.email-view {
+  width:100%;
+  height:100%;
+
+  background:white;
+  border:1px solid #bbb;
+  box-sizing:border-box;
+
+  .email-header {
+    pointer-events:none;
+    background-color:#3C5C7F;
+    overflow:auto;
+
+    .email-details {
+      width:50%;
+      display:block;
+      float:left;
+      padding:10px;
+      box-sizing:border-box;
+
+      h2 {
+        color:white;
+        font-weight:500;
+        margin-bottom:3px;
+        font-size:1em;
+      }
+
+      span {
+        display:block;
+        margin-top:3px;
+        font-size:0.8em;
+        color:#DDD;
+      }
+    }
+
+    .email-controls {
+      pointer-events:auto;
+      width:50%;
+      display:block;
+      float:left;
+      padding-top:10px;
+      padding-right:20px;
+      text-align:right;
+      box-sizing:border-box;
+
+      a {
+        display:inline-block;
+        padding:10px;
+        box-sizing:border-box;
+      }
+    }
+  }
+
+  .email-content {
+    padding:10px;
+    padding-top:20px;
+  }
+}
+
+.content-loader {
+  text-align:center;
+  padding-top:200px;
+
+  p {
+    font-weight:500;
+    margin-bottom:30px;
+    font-size:1.1em;
+  }
+}
+
 .content-container {
   box-sizing:border-box;
   padding-left:300px;
+  width:100%;
+  overflow-x:hidden;
 
   .topbar {
     width:100%;
@@ -52,6 +143,16 @@ body, html {
     }
   }
 
+  .list-overlay {
+    display:none;
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:rgba(5, 5, 5, 0.9);
+  }
+
   .email-list {
     position:absolute;
     z-index:-1;
@@ -65,11 +166,17 @@ body, html {
 
     .emails {
       border-top:1px solid #bbb;
+
+      h3 {
+        text-align:center;
+        margin-top:20px;
+      }
     }
 
     .email {
       display:block;
       border-bottom:1px solid #bbb;
+      border-right:1px solid #bbb;
 
       padding:20px;
 
@@ -87,6 +194,10 @@ body, html {
 
       &:hover {
         text-decoration:none;
+        background-color:#79B9FF;
+      }
+
+      &.active {
         background-color:#79B9FF;
       }
 
@@ -114,4 +225,54 @@ body, html {
     }
   }
 
+}
+
+
+.password-prompt-container {
+  display:none;
+
+  .password-prompt {
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:250px;
+    background:#3C5C7F;
+    border-radius:3px;
+
+    .prompt-header {
+      background-color:#efefef;
+      padding:10px;
+      text-align:center;
+
+      h2 {
+        color:#3C5C7F;
+        font-weight:500;
+        font-size:1.2em;
+      }
+    }
+
+    input {
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:20px;
+      margin-bottom:20px;
+      padding:7px 10px 7px 10px;
+      width:70%;
+      display:block;
+    }
+
+    button {
+      display:block;
+      width:100%;
+      border:0;
+      background-color:#79B9FF;
+      color:#efefef;
+      padding:10px 0px 10px 0px;
+
+      &:hover {
+        background-color:#79B9FF;
+        cursor:pointer;
+      }
+    }
+  }
 }

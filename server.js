@@ -2,10 +2,14 @@
 
 const log = require("./lib/log.js"),
   database = require("./lib/database.js"),
+  email = require("./lib/email.js"),
   express = require("express"),
-  crypto = require("./lib/crypto.js"),
   session = require("express-session"),
+  middleware = require("./lib/middleware.js"),
+  fs = require("fs"),
   bodyParser = require("body-parser");
+
+const routes = require("./routes");
 
 log.info("starting email server")
 
@@ -16,94 +20,37 @@ let app = express();
 
 app.use(session({
   secret: "ollieisgay",
-  cookie: {secure: true}
+  cookie: {secure: false}
 }));
+
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-
+app.use("/static", express.static("static"));
 app.use(function(req, res, next) {
   if (req.session.user) {
-    req.locals.user = new User();
-    req.locals.user.load(req.session.user, function() {
+    req.user = new User();
+    req.user.load(req.session.user, function() {
       next();
     })
   } else {
     next();
   }
-})
-
-app.get("/login", function(req, res) {
-  res.render("login");
 });
 
-app.get("/register", function(req, res) {
-  res.render("register");
-});
+app.get("/login", routes.auth.renderLogin);
+app.get("/register", routes.auth.renderRegister);
+app.post("/register", routes.auth.register);
+app.get("/login/challenge", routes.auth.challenge);
+app.post("/login/response", routes.auth.response);
+app.get("/inbox", middleware.authed, routes.inbox.render);
+app.get("/inbox/list", middleware.authed, routes.inbox.list);
+app.get("/inbox/retrieve", middleware.authed, routes.inbox.retrieve);
+app.get("/inbox/getKeys", middleware.authed, routes.inbox.getKeys);
 
-app.get("/login/challenge", function(req, res) {
-  let username = (req.query.username || "").toString();
-  if (username) {
-    let user = new User();
-
-    user.generateLoginChallenge(username, function(err, token, challenge) {
-      var resp = {};
-
-      if (challenge) {
-        resp = {
-          status: "success",
-          challenge: challenge,
-          key: user.keys.private,
-          user: user.id
-        }
-
-      } else {
-
-        resp = {
-          status: "error",
-          error: "Incorrect username or password"
-        }
-      }
-
-      res.json(resp);
-    });
-  }
-});
-
-app.post("/login/response", function(req, res) {
-  if (req.body.user) {
-    let user = new User()
-
-    user.load(parseInt(req.body.user), (err, done) => {
-      if (err || !done) {
-        req.flash("Invalid username or password");
-        return res.redirect("/login");
-      }
-
-      user.doLogin(req.body.token, (err) => {
-        let resp = {}
-        if (err) {
-          req.flash("Invalid username or password")
-          res.redirect("/login");
-
-        } else {
-          req.session.user = user.id;
-          req.session.authenticated = true;
-
-          res.redirect("/inbox");
-        }
-      })
-    });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/inbox", function(req, res) {
-  res.render("inbox");
-});
-
-app.use("/static", express.static("static"));
 
 app.listen(8080);
+
+const SMTPServer = require("./class/smtp/server.js");
+
+var server = new SMTPServer(2500);

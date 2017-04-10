@@ -10,25 +10,29 @@
   <section class="login-container">
     <p id="register">Already have an account? <a href="/login">Click here to login</a></p>
 
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" id="register_form">
       <div class="form-container">
         <div class="form-element">
           <label for="register-username">Username</label>
-          <input name="username" id="login-username" placeholder="this will also be your email address, no spaces or special characters please">
+          <input name="username" id="register-username" placeholder="this will also be your email address, no spaces or special characters please">
         </div>
 
         <div class="form-element">
           <label for="register-password">Password</label>
-          <input name="password" type="password" id="login-password" placeholder="a secure password (at least 8 characters & some special characters)">
+          <input name="password" type="password" id="register-password" placeholder="a secure password (at least 8 characters & some special characters)">
         </div>
 
         <div class="form-element">
           <label for="register-password-confirm">Confirm password</label>
-          <input name="password" type="password" id="login-password-confirm" placeholder="please be sure you can remember this, without it your emails are gone">
+          <input name="password" type="password" id="register-password-confirm" placeholder="please be sure you can remember this, without it your emails are gone">
         </div>
 
         <div class="form-section large">
-          <button type="submit" class="btn block">Register</button>
+          <button type="submit" class="btn block" id="register-button">Register</button>
+          <div class="loading-container hidden">
+            <img src="/static/images/ring-alt.svg" alt="Registering..." id="login_spinner">
+            <p>Generating encryption keys... This may take upto 10 minutes</p>
+          </div>
         </div>
       </div>
     </form>
@@ -38,8 +42,12 @@
   <script src="/static/js/vendor/jquery-3.1.1.min.js"></script>
   <script src="/static/js/vendor/forge.min.js"></script>
   <script src="/static/js/vendor/triplesec.min.js"></script>
+
   <script src="/static/js/securemail.js"></script>
   <script src="/static/js/crypto.securemail.js"></script>
+  <script src="/static/js/users.securemail.js"></script>
+
+  <script src="/static/js/pages/register.js"></script>
 </body>
 
 <% include partials/footer %>

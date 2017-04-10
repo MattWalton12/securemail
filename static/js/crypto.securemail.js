@@ -10,6 +10,12 @@ sm.crypto.generateKeypair = function(cb) {
   });
 }
 
+sm.crypto.md5 = function(data) {
+  var md = forge.md.md5.create();
+  md.update(data);
+  return md.digest().toHex();
+}
+
 sm.crypto.exportKeys = function(publicKey, privateKey, password, cb) {
   var privateKey = forge.pki.privateKeyToPem(privateKey);
   var publicKey = forge.pki.publicKeyToPem(publicKey);
@@ -22,7 +28,7 @@ sm.crypto.exportKeys = function(publicKey, privateKey, password, cb) {
 sm.crypto.importKeys = function(publicPem, privatePem, password, cb) {
   var publicKey;
   if (publicPem) {
-    forge.pki.publicKeyFromPem(publicPem);
+    publicKey = forge.pki.publicKeyFromPem(publicPem);
   }
 
   sm.crypto.decryptPrivateKey(privatePem, password, function(err, key) {
@@ -56,9 +62,35 @@ sm.crypto.rsaDecrypt = function(privateKey, data, cb) {
   cb(null, plaintext);
 }
 
-sm.crypto.decrypt = function(privateKey, data, dataKey, cb) {
-  sm.crypto.rsaDecrypt(privateKey, dataKey, function(err, key) {
+sm.crypto.aesDecrypt = function(key, encrypted, cb) {
+  var rawData = forge.util.decode64(encrypted);
+  console.log("encrypted hash", sm.crypto.md5(rawData));
 
+  var decipher = forge.cipher.createDecipher("AES-CBC", forge.util.decode64(key.key));
+  decipher.start({iv: forge.util.createBuffer(forge.util.decode64(key.iv))});
+  decipher.update(forge.util.createBuffer(rawData));
+  decipher.finish();
+
+  cb(null, decipher.output.toString());
+}
+
+sm.crypto.decrypt = function(privateKey, data, dataKey, cb) {
+  console.log("decrypting it")
+  sm.crypto.rsaDecrypt(privateKey, dataKey, function(err, key) {
+    if (key) {
+      key = JSON.parse(key);
+
+      console.log("key parsed")
+      console.log(key)
+
+      sm.crypto.aesDecrypt(key, data, function(err, message) {
+        if (message) {
+          cb(null, message);
+        } else {
+          cb(new Error("invalid decryption key"));
+        }
+      });
+    }
   })
 }
 
