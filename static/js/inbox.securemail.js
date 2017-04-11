@@ -53,10 +53,30 @@ sm.inbox.retrieve = function(id, cb) {
 sm.inbox.updateView = function(email, message) {
   email.date = new Date(email.date * 1000);
 
-  $("#email-view-subject").html(email.subject);
-  $("#email-view-from").html(email.from_email);
+  $("#email-view-subject").html(sm.mime.decodeQuotedPrintable(email.subject));
+  $("#email-view-from").html(email.email);
   $("#email-view-date").html(sm.inbox.formatDate(email.date));
-  $("#email-view-content").html(message);
+
+  sm.inbox.getEmailDisplays(message, function(err, displays) {
+    if (displays[0]) {
+      // TODO: XSS PREVNETION!!!
+      console.log(displays[0])
+      if (displays[0].type == "text/plain") {
+        $("#email-view-content-html").hide()
+        var body = displays[0].body.trim()
+        body = body.replace(new RegExp("\n", "g"), "<br>")
+        $("#email-view-content-text").html(body)
+        $("#email-view-content-text").show()
+      } else if (displays[0].type == "text/html") {
+        $("#email-view-content-text").hide()
+        $("#email-view-content-html").contents().find("html").html(displays[0].body)
+        $("#email-view-content-html").css("height", $(".email-view").height() - $(".email-header").height() + "px")
+        $("#email-view-content-html").show()
+
+      }
+    }
+  })
+
 }
 
 sm.inbox.openView = function() {
@@ -101,4 +121,86 @@ sm.inbox.formatDate = function(date) {
   } else {
     return ("0" + date.getDate()).substr(-2) + "/" + ("0" + date.getMonth()).substr(-2) + "/" + date.getFullYear();
   }
+}
+
+var preferredTypes = ["text/html", "text/plain"]
+
+sm.inbox.getEmailDisplays = function(data, callback) {
+  sm.mime.process(data, function(err, data) {
+    var displays = []
+
+
+    function recursiveSearch(obj, cb) {
+      if (obj.children) {
+        var i = 0;
+
+        function go() {
+          if (obj.children[i]) {
+            recursiveSearch(obj.children[i], function() {
+              i++;
+              go();
+            })
+          } else {
+            cb()
+          }
+        }
+
+        go()
+
+      } else {
+        if (obj.headers["content-disposition"] && obj.headers["content-disposition"] != "inline") {
+          return cb()
+        }
+
+        if (!obj.body || !obj.headers["content-type"]) {
+          return cb();
+        }
+
+        var type = obj.headers["content-type"].split(";")[0].trim()
+
+        if (preferredTypes.indexOf(type) == -1) {
+          return cb()
+        }
+
+        displays.push({
+          type: type,
+          body: obj.body
+        })
+
+        cb()
+      }
+    }
+
+    recursiveSearch(data, function() {
+      displays.sort(function(a, b) {
+        if (a.type == preferredTypes[0]) {
+          return -1
+        } else {
+          return 1
+        }
+      })
+
+      callback(null, displays)
+    })
+  })
+}
+
+var bannedElements = ["iframe", "script", "form"]
+
+sm.inbox.sanitizeHTML = function(data) {
+  data = $(data)
+
+  console.log(data);
+
+  for (var i=0; i<bannedElements.length; i++) {
+    data.find(bannedElements[i]).remove()
+  }
+
+
+  data.find("*").attr("javascript", "")
+  data.find("*").attr("onclick", "")
+  data.find("*").attr("onhover", "")
+  data.find("*").attr("onhover", "")
+
+  return data.html()
 }

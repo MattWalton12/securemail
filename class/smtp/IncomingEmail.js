@@ -2,28 +2,18 @@ const User = require("./../../lib/user.js"),
   log = require("./../../lib/log.js"),
   util = require("./../../lib/util.js"),
   config = require("./../../config.json"),
-  MessageParser = require("./MessageParser.js")
+  MessageParser = require("./MessageParser.js"),
+  Email = require("./../Email.js")
 
 
 let idCounter = 0;
 
 class IncomingEmail extends Email {
   constructor() {
-    idCounter++;
-
-    this.internalID = idCounter;
-    this.sender = ""
-    this.recipients = [];
+    super()
     this.parser = new MessageParser()
-
-    log.debug("Initialising new email #" + this.internalID)
-  }
-
-  setSender(sender) {
-    let address = util.processAddress(sender)
-    this.sender = address.address
-
-    log.debug("Set sender to " + this.sender + " for #" + this.internalID)
+    this.type = 1
+    
   }
 
   addRecipient(recipient, cb) {
@@ -35,10 +25,10 @@ class IncomingEmail extends Email {
     let domain = address[1];
 
     if (domain == config.domain) {
-      User.exists(username, (err, exists) => {
+      let user = new User()
+      user.load(username, (err, exists) => {
         if (exists) {
-          log.debug("Added recipient " + username + " for #" + this.internalID)
-          this.recipients.push(username);
+          this.recipients.push(user);
           cb()
 
         } else {
@@ -51,16 +41,25 @@ class IncomingEmail extends Email {
   }
 
   process() {
-    this.parser.extractMeta(function(err, meta) {
+    this.parser.extractMeta((err, meta) =>{
       if (!err) {
+        this.meta = meta
+        this.data = this.parser.originalMessage
 
+        for (var i=0; i<this.recipients.length; i++) {
+          let indEmail = new IncomingEmail()
+          Object.assign(indEmail, this)
+          indEmail.user = this.recipients[i]
+          indEmail.save(function(err, id) {
+            log.debug("should've saved?? " + id)
+          });
+        }
+
+      } else {
+        log.debug("ERROR" + err.toString())
       }
     })
   }
 }
 
-String.prototype.stripBrackets = function() {
-  return this.toLowerCase().replace(">", "").replace(">", "").trim()
-}
-
-module.exports = SMTPEmail
+module.exports = IncomingEmail

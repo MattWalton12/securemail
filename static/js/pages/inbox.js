@@ -4,7 +4,7 @@ function createInboxElement(email) {
 
   var html = "<li>"
     + "<a href='#' id='email-" + email.id + "' class='email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
-      + "<span class='from'>" + email.from_email + "</span>"
+      + "<span class='from'>" + email.email + "</span>"
       + "<span class='subject'>" + email.subject + "</span>"
       + "<span class='date'>" + sm.inbox.formatDate(email.date) + "</span>"
     + "</a></li>";
@@ -59,3 +59,7 @@ $(document).ready(function() {
     sm.inbox.shrinkView();
   })
 })
+setInterval(function() {
+  $("#email-view-content-html").css("height", $(".email-view").height() - $(".email-header").height() + "px")
+  $("#email-view-content-text").css("height", $(".email-view").height() - $(".email-header").height() + "px")
+}, 100)

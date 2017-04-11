@@ -50,8 +50,11 @@
 
 
         <div class="email-content" id="email-view-content">
+          <div id="email-view-content-text">
+          </div>
+          <iframe id="email-view-content-html" sandbox="allow-same-origin">
 
-        </div>
+          </iframe>
         </div>
       </section>
     </div>
@@ -78,6 +81,7 @@
   <script src="/static/js/vendor/forge.min.js"></script>
   <script src="/static/js/vendor/triplesec.min.js"></script>
   <script src="/static/js/securemail.js"></script>
+  <script src="/static/js/mime.securemail.js"></script>
   <script src="/static/js/inbox.securemail.js"></script>
   <script src="/static/js/crypto.securemail.js"></script>
 

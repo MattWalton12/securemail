@@ -1,8 +1,9 @@
 const tls = require("tls"),
   fs = require("fs"),
+  util = require("./../../lib/util.js"),
   config = require("./../../config.json")
 
-let Email = require("./Email.js");
+const IncomingEmail = require("./IncomingEmail.js");
 
 const AcceptedCommands = [
   "EHLO",
@@ -48,14 +49,7 @@ class SMTPConnection {
       if (!this.email.parser.pipe(data.toString())) {
         this.status = 1;
 
-        console.log("-----DONE-----")
-
-        this.email.parser.parse();
-        this.email.parser.extract(function(err, meta, body) {
-          console.log(err);
-          console.log(meta);
-          console.log(body);
-        })
+        this.email.process()
 
         this.ok();
       }
@@ -140,8 +134,8 @@ class SMTPConnection {
       this.response(501, "Invalid from parameters")
     } else {
 
-      this.email = new Email()
-      this.email.setSender(paramSplit[1])
+      this.email = new IncomingEmail()
+      this.email.setSender(util.processAddress(paramSplit[1].trim()).address)
 
       this.ok()
     }
@@ -157,7 +151,7 @@ class SMTPConnection {
     if (paramSplit.length < 2) {
       this.response(501, "Invalid to parameters")
     } else {
-      this.email.addRecipient(paramSplit[1], (err) => {
+      this.email.addRecipient(paramSplit[1].trim(), (err) => {
         if (err) {
           this.response(550, "The user account specified does not exist")
         } else {

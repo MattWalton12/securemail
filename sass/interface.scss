@@ -98,8 +98,19 @@ body, html {
   }
 
   .email-content {
-    padding:10px;
-    padding-top:20px;
+
+    #email-view-content-html {
+      width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+
+    #email-view-content-text {
+      width:100%;
+      padding:10px;
+      overflow-y:scroll;
+      box-sizing:border-box;
+    }
   }
 }
 
