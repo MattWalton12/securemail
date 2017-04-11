@@ -13,7 +13,7 @@ class IncomingEmail extends Email {
     super()
     this.parser = new MessageParser()
     this.type = 1
-    
+
   }
 
   addRecipient(recipient, cb) {
@@ -45,6 +45,8 @@ class IncomingEmail extends Email {
       if (!err) {
         this.meta = meta
         this.data = this.parser.originalMessage
+
+        this.setSender(this.meta.from.address)
 
         for (var i=0; i<this.recipients.length; i++) {
           let indEmail = new IncomingEmail()
