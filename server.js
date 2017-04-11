@@ -51,6 +51,6 @@ app.get("/inbox/getKeys", middleware.authed, routes.inbox.getKeys);
 
 app.listen(8080);
 
-const SMTPServer = require("./class/smtp/server.js");
+const SMTPServer = require("./class/smtp/Server.js");
 
 var server = new SMTPServer(2500);
