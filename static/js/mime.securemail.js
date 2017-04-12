@@ -233,7 +233,11 @@ sm.mime.parseSubject = function(data) {
       i++
 
     } else {
-      currentData += data[i]
+      if (processing) {
+        currentData += data[i]
+      } else {
+        output += data[i]
+      }
       i++
     }
   }
