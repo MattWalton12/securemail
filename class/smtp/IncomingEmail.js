@@ -46,7 +46,7 @@ class IncomingEmail extends Email {
         this.meta = meta
         this.data = this.parser.originalMessage
 
-        this.setSender(this.meta.from.address)
+        this.setSender(this.meta.from)
 
         for (var i=0; i<this.recipients.length; i++) {
           let indEmail = new IncomingEmail()
