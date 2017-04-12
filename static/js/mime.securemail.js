@@ -62,6 +62,10 @@ sm.mime.process = function(data, cb) {
 
     var splitContentType = (headers["content-type"] && headers["content-type"].split(";") || "text/plain")
 
+    if (!headers || !headers['content-type']) {
+      return cb(new Error("No content type header"))
+    }
+
     if (headers["content-transfer-encoding"]) {
       if (headers["content-transfer-encoding"].toLowerCase() == "base64") {
         body = atob(body.replace(".", "").trim())
@@ -69,6 +73,7 @@ sm.mime.process = function(data, cb) {
         body = sm.mime.decodeQuotedPrintable(body)
       }
     }
+
 
     if (headers["content-type"].toLowerCase().indexOf("utf-8") > -1) {
       body = (new buffer.Buffer(body, "ascii")).toString("utf8")
@@ -98,7 +103,10 @@ sm.mime.process = function(data, cb) {
         function nextPart() {
           if (parts[i]) {
             sm.mime.process(parts[i], function(err, data) {
-              children.push(data);
+              if (data) {
+                children.push(data);
+              }
+
               i++
               nextPart()
             });
