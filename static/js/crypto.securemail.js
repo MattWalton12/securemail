@@ -71,6 +71,8 @@ sm.crypto.aesDecrypt = function(key, encrypted, cb) {
   decipher.update(forge.util.createBuffer(rawData));
   decipher.finish();
 
+  console.log(decipher.output)
+
   cb(null, decipher.output.toString());
 }
 
