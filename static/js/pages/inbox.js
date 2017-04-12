@@ -2,6 +2,8 @@ function createInboxElement(email) {
   // TODO: XSS PREVENTION
   email.date = new Date(email.date * 1000);
 
+  email.subject = sm.mime.parseSubject(email.subject)
+
   var html = "<li>"
     + "<a href='#' id='email-" + email.id + "' class='email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
       + "<span class='from'>" + email.email + "</span>"

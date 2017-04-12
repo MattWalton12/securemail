@@ -53,8 +53,6 @@ sm.mime.processBoundaries = function(data, boundary) {
     }
   }
 
-  console.log(boundary, exportedData)
-
   return exportedData
 }
 
@@ -197,4 +195,50 @@ sm.mime.decodeQuotedPrintable = function(data) {
   }
 
   return output
+}
+
+sm.mime.parseSubject = function(data) {
+  var output = ""
+
+  var processing = false
+  var encoding = false
+  var charset = false
+  var currentData = ""
+  var i = 0
+
+  while (i<data.length) {
+    if (data[i] == "=" && data[i+1] && data[i+1] == "?" && !processing) {
+      processing = true
+      i += 2
+    } else if (data[i] == "?") {
+      if (processing && !charset) {
+        charset = currentData.toLowerCase()
+      } else if (processing && !encoding) {
+        encoding = currentData.toLowerCase()
+      } else if (processing) {
+        if (encoding == "q") {
+          currentData = sm.mime.decodeQuotedPrintable(currentData)
+        } else if (encoding == "b") {
+          currentData = atob(currentData)
+        }
+
+        currentData = (new buffer.Buffer(currentData, "ascii")).toString(charset.replace("-", ""))
+        currentData = currentData.replace(new RegExp("_", "g"), " ")
+
+        output += currentData
+      }
+
+      currentData = ""
+
+      i++
+
+    } else {
+      currentData += data[i]
+      i++
+    }
+  }
+
+  return output
+
+
 }
