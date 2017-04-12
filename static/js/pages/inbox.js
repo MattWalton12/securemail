@@ -4,11 +4,15 @@ function createInboxElement(email) {
 
   email.subject = sm.mime.parseSubject(email.subject)
 
+  if (!email.name || email.name.trim() == "") {
+    email.name = email.email
+  }
+
   var html = "<li>"
     + "<a href='#' id='email-" + email.id + "' class='email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
       + "<div class='left'>"
         + "<span class='subject'>" + email.subject + "</span>"
-        + "<span class='from'>" + email.email + "</span>"
+        + "<span class='from'>" + email.name + "</span>"
       + "</div>"
       + "<span class='date'>" + sm.inbox.formatDate(email.date) + "</span>"
     + "</a></li>";

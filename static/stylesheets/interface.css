@@ -193,40 +193,47 @@ body, html {
 /* line 197, ../../sass/interface.scss */
 .content-container .email-list .email .left {
   display: inline-block;
+  vertical-align: middle;
   width: 610px;
 }
-/* line 202, ../../sass/interface.scss */
+/* line 203, ../../sass/interface.scss */
 .content-container .email-list .email.unread {
   background-color: #fff;
 }
-/* line 205, ../../sass/interface.scss */
+/* line 206, ../../sass/interface.scss */
 .content-container .email-list .email.unread .subject {
   font-weight: 500;
 }
-/* line 212, ../../sass/interface.scss */
+/* line 213, ../../sass/interface.scss */
 .content-container .email-list .email:hover {
   text-decoration: none;
   background-color: #79B9FF;
 }
-/* line 217, ../../sass/interface.scss */
+/* line 218, ../../sass/interface.scss */
 .content-container .email-list .email.active {
   background-color: #79B9FF;
 }
-/* line 223, ../../sass/interface.scss */
+/* line 224, ../../sass/interface.scss */
 .content-container .email-list .email .from {
   display: block;
   font-size: 0.7em;
   line-height: 1em;
   width: 100%;
   padding-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: elipsis;
 }
-/* line 231, ../../sass/interface.scss */
+/* line 235, ../../sass/interface.scss */
 .content-container .email-list .email .subject {
   display: block;
   font-size: 1em;
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: elipsis;
 }
-/* line 237, ../../sass/interface.scss */
+/* line 244, ../../sass/interface.scss */
 .content-container .email-list .email .date {
   text-align: right;
   display: inline-block;
@@ -234,11 +241,11 @@ body, html {
   font-size: 0.8em;
 }
 
-/* line 249, ../../sass/interface.scss */
+/* line 256, ../../sass/interface.scss */
 .password-prompt-container {
   display: none;
 }
-/* line 252, ../../sass/interface.scss */
+/* line 259, ../../sass/interface.scss */
 .password-prompt-container .password-prompt {
   width: 400px;
   margin-left: auto;
@@ -247,19 +254,19 @@ body, html {
   background: #3C5C7F;
   border-radius: 3px;
 }
-/* line 260, ../../sass/interface.scss */
+/* line 267, ../../sass/interface.scss */
 .password-prompt-container .password-prompt .prompt-header {
   background-color: #efefef;
   padding: 10px;
   text-align: center;
 }
-/* line 265, ../../sass/interface.scss */
+/* line 272, ../../sass/interface.scss */
 .password-prompt-container .password-prompt .prompt-header h2 {
   color: #3C5C7F;
   font-weight: 500;
   font-size: 1.2em;
 }
-/* line 272, ../../sass/interface.scss */
+/* line 279, ../../sass/interface.scss */
 .password-prompt-container .password-prompt input {
   margin-left: auto;
   margin-right: auto;
@@ -269,7 +276,7 @@ body, html {
   width: 70%;
   display: block;
 }
-/* line 282, ../../sass/interface.scss */
+/* line 289, ../../sass/interface.scss */
 .password-prompt-container .password-prompt button {
   display: block;
   width: 100%;
@@ -278,7 +285,7 @@ body, html {
   color: #efefef;
   padding: 10px 0px 10px 0px;
 }
-/* line 290, ../../sass/interface.scss */
+/* line 297, ../../sass/interface.scss */
 .password-prompt-container .password-prompt button:hover {
   background-color: #79B9FF;
   cursor: pointer;

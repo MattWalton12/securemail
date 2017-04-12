@@ -24,7 +24,12 @@ class Email {
   }
 
   setSender(obj) {
+    if (!obj.name || obj.name.trim() == "") {
+      obj.name = obj.address
+    }
+
     this.sender = obj
+
   }
 
   setBody(body) {
