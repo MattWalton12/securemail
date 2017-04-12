@@ -215,25 +215,29 @@ sm.mime.parseSubject = function(data) {
         charset = currentData.toLowerCase()
       } else if (processing && !encoding) {
         encoding = currentData.toLowerCase()
-      } else if (processing) {
-        if (encoding == "q") {
-          currentData = sm.mime.decodeQuotedPrintable(currentData)
-        } else if (encoding == "b") {
-          currentData = atob(currentData)
-        }
-
-        currentData = (new buffer.Buffer(currentData, "ascii")).toString(charset.replace("-", ""))
-        currentData = currentData.replace(new RegExp("_", "g"), " ")
-
-        output += currentData
-        processing = false
-        charset = false
-        encoding = false
       }
 
       currentData = ""
-
       i++
+      
+    } else if (data[i] == "?" && data[i+1] && data[i+1] == "=" && processing) {
+      if (encoding == "q") {
+        currentData = sm.mime.decodeQuotedPrintable(currentData)
+      } else if (encoding == "b") {
+        currentData = atob(currentData)
+      }
+
+      currentData = (new buffer.Buffer(currentData, "ascii")).toString(charset.replace("-", ""))
+      currentData = currentData.replace(new RegExp("_", "g"), " ")
+
+      output += currentData
+      processing = false
+      charset = false
+      encoding = false
+
+      currentData = ""
+
+      i += 2
 
     } else {
       if (processing) {
