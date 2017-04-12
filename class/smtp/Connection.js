@@ -135,7 +135,7 @@ class SMTPConnection {
     } else {
 
       this.email = new IncomingEmail()
-      this.email.setSender(util.processAddress(paramSplit[1].trim()).address)
+      this.email.setSender(util.processAddress(paramSplit[1].trim()))
 
       this.ok()
     }
