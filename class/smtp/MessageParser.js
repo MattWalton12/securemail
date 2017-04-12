@@ -19,7 +19,12 @@ class MessageParser {
   pipe(data) {
     this.originalMessage += data
 
-    return (this.originalMessage.substr(this.originalMessage.length - 5) != "\r\n.\r\n")
+    if (this.originalMessage.substr(this.originalMessage.length - 5) == "\r\n.\r\n") {
+      this.originalMessage = this.originalMessage.substr(0, this.originalMessage.length - 5)
+      return false
+    } else {
+      return true
+    }
   }
 
   split(data, cb) {
