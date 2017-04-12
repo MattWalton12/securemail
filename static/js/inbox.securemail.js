@@ -53,14 +53,12 @@ sm.inbox.retrieve = function(id, cb) {
 sm.inbox.updateView = function(email, message) {
   email.date = new Date(email.date * 1000);
 
-  $("#email-view-subject").html(sm.mime.decodeQuotedPrintable(email.subject));
+  $("#email-view-subject").html(sm.mime.parseSubject(email.subject));
   $("#email-view-from").html(email.email);
   $("#email-view-date").html(sm.inbox.formatDate(email.date));
 
   sm.inbox.getEmailDisplays(message, function(err, displays) {
     if (displays[0]) {
-      // TODO: XSS PREVNETION!!!
-      console.log(displays[0])
       if (displays[0].type == "text/plain") {
         $("#email-view-content-html").hide()
         var body = displays[0].body.trim()
