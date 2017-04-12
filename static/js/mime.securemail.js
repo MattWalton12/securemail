@@ -226,6 +226,9 @@ sm.mime.parseSubject = function(data) {
         currentData = currentData.replace(new RegExp("_", "g"), " ")
 
         output += currentData
+        processing = false
+        charset = false
+        encoding = false
       }
 
       currentData = ""
@@ -243,6 +246,4 @@ sm.mime.parseSubject = function(data) {
   }
 
   return output
-
-
 }
