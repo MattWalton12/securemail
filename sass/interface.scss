@@ -194,13 +194,19 @@ body, html {
       transition:background 0.2s ease-out;
 
 
+      .left {
+        display:inline-block;
+        width:610px;
+      }
+
       &.unread {
         background-color:#fff;
 
         .subject {
           font-weight:500;
-//          color:#2374CC;
         }
+
+
       }
 
       &:hover {
@@ -215,16 +221,17 @@ body, html {
       color:#555;
 
       .from {
-        display:inline-block;
-        font-size:0.8em;
+        display:block;
+        font-size:0.7em;
         line-height:1em;
-        width:210px;
+        width:100%;
+        padding-top:3px
       }
 
       .subject {
-        display:inline-block;
+        display:block;
         font-size:1em;
-        width:400px;
+        width:100%;
       }
 
       .date {

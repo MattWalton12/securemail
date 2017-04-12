@@ -23,8 +23,8 @@ class Email {
     }
   }
 
-  setSender(email) {
-    this.sender = email
+  setSender(obj) {
+    this.sender = obj
   }
 
   setBody(body) {
@@ -42,9 +42,8 @@ class Email {
   save(cb) {
     if (this.user && this.data) {
       crypto.encrypt(this.user.keys.public, this.data, (err, data, key) => {
-        console.log(this.sender)
-        database.query("INSERT INTO emails(userid, subject, email, date, encrypted_key, type, content_type) VALUES(?, ?, ?, NOW(), ?, ?, ?)",
-          [this.user.id, this.meta.subject, (this.type == 2 && this.recipients.join(";") || this.sender), key, this.type, this.meta.content_type],
+        database.query("INSERT INTO emails(userid, subject, email, name, date, encrypted_key, type) VALUES(?, ?, ?, ?, NOW(), ?, ?)",
+          [this.user.id, this.meta.subject, (this.type == 2 && this.recipients.join(";") || this.sender.address), (this.type == 2 && "" || this.sender.name), key, this.type],
 
           function(err, resp) {
             if (err)

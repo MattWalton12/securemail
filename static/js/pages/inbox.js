@@ -6,8 +6,10 @@ function createInboxElement(email) {
 
   var html = "<li>"
     + "<a href='#' id='email-" + email.id + "' class='email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
-      + "<span class='from'>" + email.email + "</span>"
-      + "<span class='subject'>" + email.subject + "</span>"
+      + "<div class='left'>"
+        + "<span class='subject'>" + email.subject + "</span>"
+        + "<span class='from'>" + email.email + "</span>"
+      + "</div>"
       + "<span class='date'>" + sm.inbox.formatDate(email.date) + "</span>"
     + "</a></li>";
 
