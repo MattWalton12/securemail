@@ -230,11 +230,10 @@ sm.mime.parseSubject = function(data) {
           currentData = atob(currentData)
         }
 
-        if (charset != "utf-8" || charset != "ascii") {
-          charset = "utf-8"
+        if (charset == "utf-8") {
+          currentData = (new buffer.Buffer(currentData, "ascii")).toString("utf8")
         }
 
-        currentData = (new buffer.Buffer(currentData, "ascii")).toString(charset.replace("-", ""))
         currentData = currentData.replace(new RegExp("_", "g"), " ")
 
         output += currentData
