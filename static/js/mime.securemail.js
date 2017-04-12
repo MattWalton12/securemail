@@ -62,8 +62,8 @@ sm.mime.process = function(data, cb) {
 
     var splitContentType = (headers["content-type"] && headers["content-type"].split(";") || "text/plain")
 
-    if (!headers || !headers['content-type']) {
-      return cb(new Error("No content type header"))
+    if (!headers["content-type"]) {
+      headers["content-type"] = "text/plain"
     }
 
     if (headers["content-transfer-encoding"]) {
