@@ -50,12 +50,16 @@ sm.inbox.retrieve = function(id, cb) {
   });
 }
 
+sm.inbox.currentRawMessage = ""
+
 sm.inbox.updateView = function(email, message) {
   email.date = new Date(email.date * 1000);
 
   $("#email-view-subject").html(sm.mime.parseSubject(email.subject));
   $("#email-view-from").html(email.email);
   $("#email-view-date").html(sm.inbox.formatDate(email.date));
+
+  sm.inbox.currentRawMessage = message
 
   sm.inbox.getEmailDisplays(message, function(err, displays) {
     if (displays[0]) {
@@ -75,6 +79,11 @@ sm.inbox.updateView = function(email, message) {
     }
   })
 
+}
+
+sm.inbox.viewRaw = function() {
+  var rawWindow = window.open("", "message.txt", "width=1000,height=800")
+  rawWindow.document.write("<textarea style='width:100%; height:100%'>" + sm.inbox.currentRawMessage + "</textarea>")
 }
 
 sm.inbox.openView = function() {
