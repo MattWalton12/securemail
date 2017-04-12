@@ -224,11 +224,14 @@ sm.mime.parseSubject = function(data) {
       } else if (processing && !encoding) {
         encoding = currentData.toLowerCase()
       } else if (data[i+1] && data[i+1] == "=" && processing) {
-        console.log("finished round", currentData)
         if (encoding == "q") {
           currentData = sm.mime.decodeQuotedPrintable(currentData)
         } else if (encoding == "b") {
           currentData = atob(currentData)
+        }
+
+        if (charset != "utf-8" || charset != "ascii") {
+          charset = "utf-8"
         }
 
         currentData = (new buffer.Buffer(currentData, "ascii")).toString(charset.replace("-", ""))
