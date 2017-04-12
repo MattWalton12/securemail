@@ -66,15 +66,14 @@ sm.mime.process = function(data, cb) {
 
     if (headers["content-transfer-encoding"]) {
       if (headers["content-transfer-encoding"].toLowerCase() == "base64") {
-        if (headers["content-type"].toLowerCase().indexOf("utf-8") > -1) {
-          console.log("UTF8!!")
-          body = (new buffer.Buffer(body.replace(".", "").trim(), "base64")).toString("utf8")
-        } else {
-          body = atob(body.replace(".", "").trim())
-        }
+        body = atob(body.replace(".", "").trim())
       } else if (headers["content-transfer-encoding"].toLowerCase() == "quoted-printable") {
         body = sm.mime.decodeQuotedPrintable(body)
       }
+    }
+
+    if (headers["content-type"].toLowerCase().indexOf("utf-8") > -1) {
+      body = (new buffer.Buffer(body, "ascii")).toString("utf8")
     }
 
     if (splitContentType[0].trim().split("/")[0] == "multipart") {
