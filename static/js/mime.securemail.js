@@ -66,7 +66,12 @@ sm.mime.process = function(data, cb) {
 
     if (headers["content-transfer-encoding"]) {
       if (headers["content-transfer-encoding"].toLowerCase() == "base64") {
-        body = atob(body.replace(".", "").trim())
+        if (headers["content-type"].toLowerCase().indexOf("utf-8") > -1) {
+          console.log("UTF8!!")
+          body = (new Buffer(body.replace(".", "").trim(), "base64")).toString("utf8")
+        } else {
+          body = atob(body.replace(".", "").trim())
+        }
       } else if (headers["content-transfer-encoding"].toLowerCase() == "quoted-printable") {
         body = sm.mime.decodeQuotedPrintable(body)
       }
