@@ -4,9 +4,9 @@ body, html {
 }
 
 /* line 5, ../../sass/interface.scss */
-.sidebar {
+.sm-sidebar {
   position: fixed;
-  z-index: 999;
+  z-index: 995;
   width: 300px;
   height: 100%;
   padding: 30px;
@@ -15,17 +15,27 @@ body, html {
   border-right: 1px solid #2c435c;
 }
 /* line 18, ../../sass/interface.scss */
-.sidebar h1 {
+.sm-sidebar .sm-title {
+  margin-bottom: 25px;
+}
+/* line 22, ../../sass/interface.scss */
+.sm-sidebar h1 {
   color: #79B9FF;
   line-height: 32px;
 }
-/* line 22, ../../sass/interface.scss */
-.sidebar h1 img {
+/* line 26, ../../sass/interface.scss */
+.sm-sidebar h1 img {
   margin-right: 5px;
 }
+/* line 31, ../../sass/interface.scss */
+.sm-sidebar .sm-btn {
+  box-sizing: border-box;
+  text-align: center;
+  color: #333;
+}
 
-/* line 28, ../../sass/interface.scss */
-.email-view-container {
+/* line 38, ../../sass/interface.scss */
+.sm-email-view-container {
   width: 550px;
   height: 100%;
   padding-top: 80px;
@@ -37,50 +47,50 @@ body, html {
   padding-left: 550px;
   transition: padding 0.2s ease-out, width 0.2s ease-out;
 }
-/* line 41, ../../sass/interface.scss */
-.email-view-container.extended {
+/* line 51, ../../sass/interface.scss */
+.sm-email-view-container.sm-extended {
   padding-top: 10px;
   width: 1100px;
 }
 
-/* line 47, ../../sass/interface.scss */
-.email-view {
+/* line 57, ../../sass/interface.scss */
+.sm-email-view {
   width: 100%;
   height: 100%;
   background: white;
   border: 1px solid #bbb;
   box-sizing: border-box;
 }
-/* line 55, ../../sass/interface.scss */
-.email-view .email-header {
+/* line 65, ../../sass/interface.scss */
+.sm-email-view .sm-email-header {
   pointer-events: none;
   background-color: #3C5C7F;
   overflow: auto;
 }
-/* line 60, ../../sass/interface.scss */
-.email-view .email-header .email-details {
+/* line 70, ../../sass/interface.scss */
+.sm-email-view .sm-email-header .sm-email-details {
   width: 50%;
   display: block;
   float: left;
   padding: 10px;
   box-sizing: border-box;
 }
-/* line 67, ../../sass/interface.scss */
-.email-view .email-header .email-details h2 {
+/* line 77, ../../sass/interface.scss */
+.sm-email-view .sm-email-header .sm-email-details h2 {
   color: white;
   font-weight: 500;
   margin-bottom: 3px;
   font-size: 1em;
 }
-/* line 74, ../../sass/interface.scss */
-.email-view .email-header .email-details span {
+/* line 84, ../../sass/interface.scss */
+.sm-email-view .sm-email-header .sm-email-details span {
   display: block;
   margin-top: 3px;
   font-size: 0.8em;
   color: #DDD;
 }
-/* line 82, ../../sass/interface.scss */
-.email-view .email-header .email-controls {
+/* line 92, ../../sass/interface.scss */
+.sm-email-view .sm-email-header .sm-email-controls {
   pointer-events: auto;
   width: 50%;
   display: block;
@@ -90,59 +100,116 @@ body, html {
   text-align: right;
   box-sizing: border-box;
 }
-/* line 92, ../../sass/interface.scss */
-.email-view .email-header .email-controls a {
+/* line 102, ../../sass/interface.scss */
+.sm-email-view .sm-email-header .sm-email-controls a {
   display: inline-block;
   padding: 10px;
   box-sizing: border-box;
 }
-/* line 102, ../../sass/interface.scss */
-.email-view .email-content #email-view-content-html {
+/* line 112, ../../sass/interface.scss */
+.sm-email-view .sm-email-content #email-view-content-html {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-/* line 108, ../../sass/interface.scss */
-.email-view .email-content #email-view-content-text {
+/* line 5, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html html, .sm-email-view .sm-email-content #email-view-content-html body, .sm-email-view .sm-email-content #email-view-content-html div, .sm-email-view .sm-email-content #email-view-content-html span, .sm-email-view .sm-email-content #email-view-content-html applet, .sm-email-view .sm-email-content #email-view-content-html object, .sm-email-view .sm-email-content #email-view-content-html iframe,
+.sm-email-view .sm-email-content #email-view-content-html h1, .sm-email-view .sm-email-content #email-view-content-html h2, .sm-email-view .sm-email-content #email-view-content-html h3, .sm-email-view .sm-email-content #email-view-content-html h4, .sm-email-view .sm-email-content #email-view-content-html h5, .sm-email-view .sm-email-content #email-view-content-html h6, .sm-email-view .sm-email-content #email-view-content-html p, .sm-email-view .sm-email-content #email-view-content-html blockquote, .sm-email-view .sm-email-content #email-view-content-html pre,
+.sm-email-view .sm-email-content #email-view-content-html a, .sm-email-view .sm-email-content #email-view-content-html abbr, .sm-email-view .sm-email-content #email-view-content-html acronym, .sm-email-view .sm-email-content #email-view-content-html address, .sm-email-view .sm-email-content #email-view-content-html big, .sm-email-view .sm-email-content #email-view-content-html cite, .sm-email-view .sm-email-content #email-view-content-html code,
+.sm-email-view .sm-email-content #email-view-content-html del, .sm-email-view .sm-email-content #email-view-content-html dfn, .sm-email-view .sm-email-content #email-view-content-html em, .sm-email-view .sm-email-content #email-view-content-html img, .sm-email-view .sm-email-content #email-view-content-html ins, .sm-email-view .sm-email-content #email-view-content-html kbd, .sm-email-view .sm-email-content #email-view-content-html q, .sm-email-view .sm-email-content #email-view-content-html s, .sm-email-view .sm-email-content #email-view-content-html samp,
+.sm-email-view .sm-email-content #email-view-content-html small, .sm-email-view .sm-email-content #email-view-content-html strike, .sm-email-view .sm-email-content #email-view-content-html strong, .sm-email-view .sm-email-content #email-view-content-html sub, .sm-email-view .sm-email-content #email-view-content-html sup, .sm-email-view .sm-email-content #email-view-content-html tt, .sm-email-view .sm-email-content #email-view-content-html var,
+.sm-email-view .sm-email-content #email-view-content-html b, .sm-email-view .sm-email-content #email-view-content-html u, .sm-email-view .sm-email-content #email-view-content-html i, .sm-email-view .sm-email-content #email-view-content-html center,
+.sm-email-view .sm-email-content #email-view-content-html dl, .sm-email-view .sm-email-content #email-view-content-html dt, .sm-email-view .sm-email-content #email-view-content-html dd, .sm-email-view .sm-email-content #email-view-content-html ol, .sm-email-view .sm-email-content #email-view-content-html ul, .sm-email-view .sm-email-content #email-view-content-html li,
+.sm-email-view .sm-email-content #email-view-content-html fieldset, .sm-email-view .sm-email-content #email-view-content-html form, .sm-email-view .sm-email-content #email-view-content-html label, .sm-email-view .sm-email-content #email-view-content-html legend,
+.sm-email-view .sm-email-content #email-view-content-html table, .sm-email-view .sm-email-content #email-view-content-html caption, .sm-email-view .sm-email-content #email-view-content-html tbody, .sm-email-view .sm-email-content #email-view-content-html tfoot, .sm-email-view .sm-email-content #email-view-content-html thead, .sm-email-view .sm-email-content #email-view-content-html tr, .sm-email-view .sm-email-content #email-view-content-html th, .sm-email-view .sm-email-content #email-view-content-html td,
+.sm-email-view .sm-email-content #email-view-content-html article, .sm-email-view .sm-email-content #email-view-content-html aside, .sm-email-view .sm-email-content #email-view-content-html canvas, .sm-email-view .sm-email-content #email-view-content-html details, .sm-email-view .sm-email-content #email-view-content-html embed,
+.sm-email-view .sm-email-content #email-view-content-html figure, .sm-email-view .sm-email-content #email-view-content-html figcaption, .sm-email-view .sm-email-content #email-view-content-html footer, .sm-email-view .sm-email-content #email-view-content-html header, .sm-email-view .sm-email-content #email-view-content-html hgroup,
+.sm-email-view .sm-email-content #email-view-content-html menu, .sm-email-view .sm-email-content #email-view-content-html nav, .sm-email-view .sm-email-content #email-view-content-html output, .sm-email-view .sm-email-content #email-view-content-html ruby, .sm-email-view .sm-email-content #email-view-content-html section, .sm-email-view .sm-email-content #email-view-content-html summary,
+.sm-email-view .sm-email-content #email-view-content-html time, .sm-email-view .sm-email-content #email-view-content-html mark, .sm-email-view .sm-email-content #email-view-content-html audio, .sm-email-view .sm-email-content #email-view-content-html video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* line 22, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html html {
+  line-height: 1;
+}
+/* line 24, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html ol, .sm-email-view .sm-email-content #email-view-content-html ul {
+  list-style: none;
+}
+/* line 26, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 28, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html caption, .sm-email-view .sm-email-content #email-view-content-html th, .sm-email-view .sm-email-content #email-view-content-html td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+/* line 30, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html q, .sm-email-view .sm-email-content #email-view-content-html blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html q:before, .sm-email-view .sm-email-content #email-view-content-html q:after, .sm-email-view .sm-email-content #email-view-content-html blockquote:before, .sm-email-view .sm-email-content #email-view-content-html blockquote:after {
+  content: "";
+  content: none;
+}
+/* line 32, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html a img {
+  border: none;
+}
+/* line 116, ../../../../../../.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+.sm-email-view .sm-email-content #email-view-content-html article, .sm-email-view .sm-email-content #email-view-content-html aside, .sm-email-view .sm-email-content #email-view-content-html details, .sm-email-view .sm-email-content #email-view-content-html figcaption, .sm-email-view .sm-email-content #email-view-content-html figure, .sm-email-view .sm-email-content #email-view-content-html footer, .sm-email-view .sm-email-content #email-view-content-html header, .sm-email-view .sm-email-content #email-view-content-html hgroup, .sm-email-view .sm-email-content #email-view-content-html main, .sm-email-view .sm-email-content #email-view-content-html menu, .sm-email-view .sm-email-content #email-view-content-html nav, .sm-email-view .sm-email-content #email-view-content-html section, .sm-email-view .sm-email-content #email-view-content-html summary {
+  display: block;
+}
+/* line 120, ../../sass/interface.scss */
+.sm-email-view .sm-email-content #email-view-content-text {
   width: 100%;
   padding: 10px;
   overflow-y: scroll;
   box-sizing: border-box;
 }
 
-/* line 117, ../../sass/interface.scss */
-.content-loader {
+/* line 129, ../../sass/interface.scss */
+.sm-content-loader {
   text-align: center;
   padding-top: 200px;
 }
-/* line 121, ../../sass/interface.scss */
-.content-loader p {
+/* line 133, ../../sass/interface.scss */
+.sm-content-loader p {
   font-weight: 500;
   margin-bottom: 30px;
   font-size: 1.1em;
 }
 
-/* line 128, ../../sass/interface.scss */
-.content-container {
+/* line 140, ../../sass/interface.scss */
+.sm-content-container {
   box-sizing: border-box;
   padding-left: 300px;
   width: 100%;
   overflow-x: hidden;
 }
-/* line 134, ../../sass/interface.scss */
-.content-container .topbar {
+/* line 146, ../../sass/interface.scss */
+.sm-content-container .sm-topbar {
   width: 100%;
   height: 70px;
   background-color: #3C5C7F;
   z-index: 998;
 }
-/* line 140, ../../sass/interface.scss */
-.content-container .topbar .search-input-container {
+/* line 152, ../../sass/interface.scss */
+.sm-content-container .sm-topbar .sm-search-input-container {
   margin-left: 9px;
   padding-top: 17px;
 }
-/* line 145, ../../sass/interface.scss */
-.content-container .topbar .search-input {
+/* line 157, ../../sass/interface.scss */
+.sm-content-container .sm-topbar .sm-search-input {
   display: block;
   padding: 7px;
   font-size: 0.9em;
@@ -151,8 +218,8 @@ body, html {
   border-radius: 3px;
   border: 1px solid #2c435c;
 }
-/* line 157, ../../sass/interface.scss */
-.content-container .list-overlay {
+/* line 169, ../../sass/interface.scss */
+.sm-content-container .sm-list-overlay {
   display: none;
   position: absolute;
   top: 0px;
@@ -161,8 +228,8 @@ body, html {
   height: 100%;
   background-color: rgba(5, 5, 5, 0.9);
 }
-/* line 167, ../../sass/interface.scss */
-.content-container .email-list {
+/* line 179, ../../sass/interface.scss */
+.sm-content-container .sm-email-list {
   position: absolute;
   z-index: -1;
   height: 100%;
@@ -172,17 +239,17 @@ body, html {
   overflow-y: scroll;
   width: 800px;
 }
-/* line 178, ../../sass/interface.scss */
-.content-container .email-list .emails {
+/* line 190, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-emails {
   border-top: 1px solid #bbb;
 }
-/* line 181, ../../sass/interface.scss */
-.content-container .email-list .emails h3 {
+/* line 193, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-emails h3 {
   text-align: center;
   margin-top: 20px;
 }
-/* line 187, ../../sass/interface.scss */
-.content-container .email-list .email {
+/* line 199, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email {
   display: block;
   border-bottom: 1px solid #bbb;
   border-right: 1px solid #bbb;
@@ -190,31 +257,31 @@ body, html {
   transition: background 0.2s ease-out;
   color: #555;
 }
-/* line 197, ../../sass/interface.scss */
-.content-container .email-list .email .left {
+/* line 209, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email .sm-left {
   display: inline-block;
   vertical-align: middle;
   width: 610px;
 }
-/* line 203, ../../sass/interface.scss */
-.content-container .email-list .email.unread {
+/* line 215, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email.sm-unread {
   background-color: #fff;
 }
-/* line 206, ../../sass/interface.scss */
-.content-container .email-list .email.unread .subject {
+/* line 218, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email.sm-unread .sm-subject {
   font-weight: 500;
 }
-/* line 213, ../../sass/interface.scss */
-.content-container .email-list .email:hover {
+/* line 225, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email:hover {
   text-decoration: none;
   background-color: #79B9FF;
 }
-/* line 218, ../../sass/interface.scss */
-.content-container .email-list .email.active {
+/* line 230, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email.active {
   background-color: #79B9FF;
 }
-/* line 224, ../../sass/interface.scss */
-.content-container .email-list .email .from {
+/* line 236, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email .sm-from {
   display: block;
   font-size: 0.7em;
   line-height: 1em;
@@ -222,10 +289,10 @@ body, html {
   padding-top: 3px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: elipsis;
+  text-overflow: ellipsis;
 }
-/* line 235, ../../sass/interface.scss */
-.content-container .email-list .email .subject {
+/* line 247, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email .sm-subject {
   display: block;
   font-size: 1em;
   width: 100%;
@@ -233,20 +300,20 @@ body, html {
   overflow: hidden;
   text-overflow: elipsis;
 }
-/* line 244, ../../sass/interface.scss */
-.content-container .email-list .email .date {
+/* line 256, ../../sass/interface.scss */
+.sm-content-container .sm-email-list .sm-email .sm-date {
   text-align: right;
   display: inline-block;
   width: 140px;
   font-size: 0.8em;
 }
 
-/* line 256, ../../sass/interface.scss */
-.password-prompt-container {
+/* line 268, ../../sass/interface.scss */
+.sm-password-prompt-container {
   display: none;
 }
-/* line 259, ../../sass/interface.scss */
-.password-prompt-container .password-prompt {
+/* line 271, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt {
   width: 400px;
   margin-left: auto;
   margin-right: auto;
@@ -254,20 +321,20 @@ body, html {
   background: #3C5C7F;
   border-radius: 3px;
 }
-/* line 267, ../../sass/interface.scss */
-.password-prompt-container .password-prompt .prompt-header {
+/* line 279, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt .sm-prompt-header {
   background-color: #efefef;
   padding: 10px;
   text-align: center;
 }
-/* line 272, ../../sass/interface.scss */
-.password-prompt-container .password-prompt .prompt-header h2 {
+/* line 284, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt .sm-prompt-header h2 {
   color: #3C5C7F;
   font-weight: 500;
   font-size: 1.2em;
 }
-/* line 279, ../../sass/interface.scss */
-.password-prompt-container .password-prompt input {
+/* line 291, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt input {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
@@ -276,8 +343,8 @@ body, html {
   width: 70%;
   display: block;
 }
-/* line 289, ../../sass/interface.scss */
-.password-prompt-container .password-prompt button {
+/* line 301, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt button {
   display: block;
   width: 100%;
   border: 0;
@@ -285,8 +352,61 @@ body, html {
   color: #efefef;
   padding: 10px 0px 10px 0px;
 }
-/* line 297, ../../sass/interface.scss */
-.password-prompt-container .password-prompt button:hover {
+/* line 309, ../../sass/interface.scss */
+.sm-password-prompt-container .sm-password-prompt button:hover {
   background-color: #79B9FF;
   cursor: pointer;
+}
+
+/* line 317, ../../sass/interface.scss */
+.sm-send-container {
+  position: fixed;
+  z-index: 996;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.97);
+  transition: opacity 0.2s ease-out;
+}
+/* line 326, ../../sass/interface.scss */
+.sm-send-container.closed {
+  opacity: 0;
+}
+/* line 332, ../../sass/interface.scss */
+.sm-send-container .sm-send {
+  pointer-events: auto;
+  z-index: 999;
+  width: 700px;
+  height: 550px;
+  background-color: #efefef;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-top: 20px solid #3C5C7F;
+}
+/* line 343, ../../sass/interface.scss */
+.sm-send-container .sm-send input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 0;
+  font-size: 0.8em;
+  margin-top: 3px;
+}
+/* line 353, ../../sass/interface.scss */
+.sm-send-container .sm-send textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  padding: 8px;
+  resize: none;
+  margin-top: 10px;
+  height: 400px;
+}
+/* line 363, ../../sass/interface.scss */
+.sm-send-container .sm-send button {
+  margin-left: 15px;
+  margin-top: 15px;
 }

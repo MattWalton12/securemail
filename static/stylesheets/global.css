@@ -98,7 +98,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 1, ../../sass/partials/_buttons.scss */
-.btn {
+.sm-btn {
   border: 0;
   background-color: #79B9FF;
   padding: 10px 20px 10px 20px;
@@ -106,12 +106,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   transition: background-color 0.3s ease-out;
 }
 /* line 9, ../../sass/partials/_buttons.scss */
-.btn.block {
+.sm-btn.sm-block {
   display: block;
   width: 100%;
 }
 /* line 16, ../../sass/partials/_buttons.scss */
-.btn:hover {
+.sm-btn:hover {
   background-color: #469eff;
   cursor: pointer;
 }
@@ -124,18 +124,18 @@ body, html {
 }
 
 /* line 12, ../../sass/global.scss */
-h1, h2, h3, h4 {
+.sm-h {
   font-family: "Roboto Slab", sans-serif;
   color: #2C91FF;
 }
 
 /* line 17, ../../sass/global.scss */
-h1 {
+.sm-h1 {
   font-size: 2em;
 }
 
 /* line 20, ../../sass/global.scss */
-h2 {
+.sm-h2 {
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   font-size: 1.6em;
@@ -147,11 +147,11 @@ a {
   text-decoration: none;
 }
 /* line 30, ../../sass/global.scss */
-a:hover {
+a:hover:not(.sm-btn) {
   text-decoration: underline;
 }
 
 /* line 35, ../../sass/global.scss */
-.hidden {
+.sm-hidden {
   display: none;
 }

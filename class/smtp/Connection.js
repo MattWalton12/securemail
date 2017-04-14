@@ -5,6 +5,14 @@ const tls = require("tls"),
 
 const IncomingEmail = require("./IncomingEmail.js");
 
+/*
+  TODO:
+    - Fix STARTTLS
+    - Add RSET command
+    - Add NOOP command
+*/
+
+
 const AcceptedCommands = [
   "EHLO",
   "HELO",
@@ -49,9 +57,13 @@ class SMTPConnection {
       if (!this.email.parser.pipe(data.toString())) {
         this.status = 1;
 
-        this.email.process()
+        this.email.process(function(err) {
+          if (err) {
 
-        this.ok();
+          }
+        })
+
+
       }
     }
   }

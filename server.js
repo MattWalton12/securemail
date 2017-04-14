@@ -47,7 +47,7 @@ app.get("/inbox", middleware.authed, routes.inbox.render);
 app.get("/inbox/list", middleware.authed, routes.inbox.list);
 app.get("/inbox/retrieve", middleware.authed, routes.inbox.retrieve);
 app.get("/inbox/getKeys", middleware.authed, routes.inbox.getKeys);
-
+app.post("/inbox/send", middleware.authed, routes.inbox.send);
 
 app.listen(8080);
 

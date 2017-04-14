@@ -8,17 +8,19 @@ function createInboxElement(email) {
     email.name = email.email
   }
 
+  email.name = sm.mime.parseSubject(email.name)
+
   var html = "<li>"
-    + "<a href='#' id='email-" + email.id + "' class='email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
-      + "<div class='left'>"
-        + "<span class='subject'>" + email.subject + "</span>"
-        + "<span class='from'>" + email.name + "</span>"
+    + "<a href='#' id='email-" + email.id + "' class='sm-email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
+      + "<div class='sm-left'>"
+        + "<span class='sm-subject'>" + email.subject + "</span>"
+        + "<span class='sm-from'>" + email.name + "</span>"
       + "</div>"
-      + "<span class='date'>" + sm.inbox.formatDate(email.date) + "</span>"
+      + "<span class='sm-date'>" + sm.inbox.formatDate(email.date) + "</span>"
     + "</a></li>";
 
-  $(".emails").append(html);
-  $(".emails h3").hide();
+  $(".sm-emails").append(html);
+  $(".sm-emails h3").hide();
 
   updateEmailActions(email.id);
 }
@@ -26,9 +28,9 @@ function createInboxElement(email) {
 function updateEmailActions(id) {
   $("#email-" + id).click(function(e) {
     e.preventDefault();
-    $(".active").removeClass("active");
-    $(this).addClass("active");
-    $(this).removeClass("unread");
+    $(".sm-active").removeClass("sm-active");
+    $(this).addClass("sm-active");
+    $(this).removeClass("sm-unread");
 
     var id = $(this).data("id");
 
@@ -41,8 +43,8 @@ function updateEmailActions(id) {
 
 $(document).ready(function() {
   sm.inbox.init(function() {
-    $(".content-loader").fadeOut(function() {
-      $(".main").fadeIn();
+    $(".sm-content-loader").fadeOut(function() {
+      $(".sm-main").fadeIn();
     });
   });
 
@@ -59,15 +61,33 @@ $(document).ready(function() {
     sm.inbox.promptSubmit(password);
   })
 
-  $(".email-view").click(function() {
+  $(".sm-email-view").click(function() {
     sm.inbox.extendView();
   })
 
-  $(".list-overlay").click(function() {
+  $(".sm-list-overlay").click(function() {
     sm.inbox.shrinkView();
+  })
+
+  $("#compose-email-btn").click(function(e) {
+    e.preventDefault();
+    sm.inbox.compose();
+  })
+
+  $(".sm-send-container").click(function(e) {
+    sm.inbox.closeCompose()
+  })
+
+  $(".sm-send").click(function(e) {
+    e.stopPropagation()
+  })
+
+  $("#send-submit").click(function(e) {
+    e.preventDefault()
+    sm.inbox.send($("#send-to").val(), $("#send-subject").val(), $("#send-body").val())
   })
 })
 setInterval(function() {
-  $("#email-view-content-html").css("height", $(".email-view").height() - $(".email-header").height() + "px")
-  $("#email-view-content-text").css("height", $(".email-view").height() - $(".email-header").height() + "px")
+  $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
+  $("#email-view-content-text").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
 }, 100)

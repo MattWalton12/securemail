@@ -3,56 +3,57 @@
 <% include partials/header %>
 
 <body>
-  <section class="sidebar">
-    <div class="title">
-      <h1><img src="/static/images/Lock-32.png">SecureMail.</h1>
+  <section class="sm-sidebar">
+    <div class="sm-title">
+      <h1 class="sm-h sm-h1"><img src="/static/images/Lock-32.png">SecureMail.</h1>
     </div>
+
+    <a href="#" class="sm-btn sm-block" id="compose-email-btn">Compose Email</a>
   </section>
 
-  <div class="content-container content-loader">
+  <div class="sm-content-container sm-content-loader">
     <p>Decrypting keys...</p>
     <img src="/static/images/ring-alt.svg" alt="Decrypting keys.." id="loader_spinner">
   </div>
 
-  <div class="content-container main hidden">
-    <section class="topbar">
-      <div class="search-input-container">
+  <div class="sm-content-container sm-main sm-hidden">
+    <section class="sm-topbar">
+      <div class="sm-search-input-container">
         <form action="#" method="POST" id="search-form">
-          <input class="search-input" id="search-input" placeholder="Search your inbox...">
+          <input class="sm-search-input" id="search-input" placeholder="Search your inbox...">
         </form>
       </div>
     </section>
 
-    <div class="list-overlay">
+    <div class="sm-list-overlay">
     </div>
 
-    <section class="email-list">
+    <section class="sm-email-list">
 
-      <ul class="emails">
-        <h3>No emails found</h3>
+      <ul class="sm-emails">
+        <h3 class="sm-h sm-h3">No emails found</h3>
       </ul>
     </section>
 
-    <div class="email-view-container">
-      <section class="email-view">
-        <div class="email-header">
-          <div class="email-details">
-            <h2 class="subject" id="email-view-subject">First email</h2>
-            <span class="from" id="email-view-from">m@ttwalton.com</span>
-            <span class="date" id="email-view-date">10/12/2015</span>
+    <div class="sm-email-view-container">
+      <section class="sm-email-view">
+        <div class="sm-email-header">
+          <div class="sm-email-details">
+            <h2 class="sm-h sm-h2 sm-subject" id="email-view-subject">First email</h2>
+            <span class="sm-from" id="email-view-from">m@ttwalton.com</span>
+            <span class="sm-date" id="email-view-date">10/12/2015</span>
           </div>
-          <div class="email-controls">
+          <div class="sm-email-controls">
             <a href="#"><img src="/static/images/Reply-32.png" alt="Reply" title="Reply"></a>
-            <a href="#"><img src="/static/images/Forward-32.png" alt="Forward" title="Forward"></a>
             <a href="#"><img src="/static/images/Mail-Delete-32.png" alt="Delete" title="Delete"></a>
           </div>
         </div>
 
 
-        <div class="email-content" id="email-view-content">
+        <div class="sm-email-content" id="email-view-content">
           <div id="email-view-content-text">
           </div>
-          <iframe id="email-view-content-html" sandbox="allow-same-origin">
+          <iframe id="email-view-content-html">
 
           </iframe>
         </div>
@@ -60,9 +61,9 @@
     </div>
   </div>
 
-  <div class="content-container password-prompt-container">
-    <div class="password-prompt">
-      <div class="prompt-header">
+  <div class="sm-content-container sm-password-prompt-container">
+    <div class="sm-password-prompt">
+      <div class="sm-prompt-header">
         <h2>Confirm your password</h2>
       </div>
 
@@ -71,6 +72,19 @@
         <button type="submit">Continue</button>
       </form>
 
+    </div>
+  </div>
+
+  <div class="sm-send-container sm-hidden closed">
+    <div class="sm-send">
+      <form action="/send" method="POST">
+        <input placeholder="To" id="send-to" required>
+        <input placeholder="Subject" id="send-subject">
+
+        <textarea id="send-body" placeholder="Write your message..."></textarea>
+
+        <button class="sm-btn block" type="submit" id="send-submit">Send</button>
+      </form>
     </div>
   </div>
 
@@ -83,6 +97,7 @@
   <script src="/static/js/vendor/buffer.js"></script>
   <script src="/static/js/securemail.js"></script>
   <script src="/static/js/mime.securemail.js"></script>
+  <script src="/static/js/preprocess.securemail.js"></script>
   <script src="/static/js/inbox.securemail.js"></script>
   <script src="/static/js/crypto.securemail.js"></script>
 

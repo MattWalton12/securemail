@@ -1,5 +1,8 @@
 const email = require("./../lib/email.js"),
-  crypto = require("./../lib/crypto.js");
+  crypto = require("./../lib/crypto.js"),
+  config = require("./../config.json")
+
+const Email = require("./../class/Email.js")
 
 exports.render = function(req, res) {
   res.render("inbox");
@@ -61,4 +64,45 @@ exports.getKeys = function(req, res) {
     publicKey: user.keys.public_pem,
     privateKey: user.keys.private
   });
+}
+
+exports.send = function(req, res) {
+  let to = (req.body.to || "").toString()
+  let subject = (req.body.subject || "No subject").toString()
+  let body = (req.body.body || "").toString()
+
+
+  if (to && body) {
+    let recipients = to.split(",")
+
+
+    let newEmail = new Email()
+    newEmail.setSubject(subject)
+
+    for (var i=0; i<recipients.length; i++) {
+      newEmail.addRecipient(recipients[i])
+    }
+
+    newEmail.setSender(req.user.username + "@" + config.domain)
+    newEmail.setBody(body)
+    newEmail.setUser(req.user)
+
+    console.log("Test")
+    newEmail.build(function() {
+      console.log("test2")
+      newEmail.save(function() {
+        newEmail.queue()
+
+        res.json({
+          status: "success"
+        })
+      })
+    });
+
+  } else {
+    res.json({
+      status: "error",
+      error: "Invalid recipients or body"
+    })
+  }
 }

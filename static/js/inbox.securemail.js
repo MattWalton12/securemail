@@ -13,7 +13,7 @@ sm.inbox.init = function(cb) {
     })
   }
 
-  $(".content-loader").fadeIn();
+  $(".sm-content-loader").fadeIn();
 
   $.getJSON("/inbox/getKeys", function(data) {
     sm.crypto.importKeys(data.publicKey, data.privateKey, password, function(err, publicKey, privateKey) {
@@ -72,8 +72,18 @@ sm.inbox.updateView = function(email, message) {
       } else if (displays[0].type == "text/html") {
         $("#email-view-content-text").hide()
         $("#email-view-content-html").contents().find("html").html(displays[0].body)
-        $("#email-view-content-html").css("height", $(".email-view").height() - $(".email-header").height() + "px")
+        $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
         $("#email-view-content-html").show()
+
+        var iframe = $("#email-view-content-html").contents();
+        console.log("TEST")
+        console.log(iframe.find("a"))
+        iframe.find("a").click(function(e) {
+          e.preventDefault();
+          var link = $(this).attr("href")
+          var popup = window.open("about:blank", "_blank")
+          popup.location = link
+        })
 
       }
     }
@@ -87,33 +97,33 @@ sm.inbox.viewRaw = function() {
 }
 
 sm.inbox.openView = function() {
-  $(".email-view-container").css("padding-left", "0px");
+  $(".sm-email-view-container").css("padding-left", "0px");
 }
 
 sm.inbox.closeView = function() {
-  $(".email-view-container").css("padding-left", "550px");
+  $(".sm-email-view-container").css("padding-left", "550px");
 }
 
 sm.inbox.extendView = function() {
-  $(".email-view-container").addClass("extended");
-  $(".list-overlay").fadeIn();
+  $(".sm-email-view-container").addClass("sm-extended");
+  $(".sm-list-overlay").fadeIn();
 }
 
 sm.inbox.shrinkView = function() {
-  $(".list-overlay").fadeOut();
-  $(".email-view-container").removeClass("extended");
+  $(".sm-list-overlay").fadeOut();
+  $(".sm-email-view-container").removeClass("sm-extended");
 }
 
 sm.inbox.prompt = function(cb) {
-  $(".main").hide();
-  $(".content-loader").hide();
+  $(".sm-main").hide();
+  $(".sm-content-loader").hide();
 
-  $(".password-prompt-container").fadeIn();
+  $(".sm-password-prompt-container").fadeIn();
   sm.inbox.promptFunction = cb;
 }
 
 sm.inbox.promptSubmit = function(password) {
-  $(".password-prompt-container").fadeOut(function() {
+  $(".sm-password-prompt-container").fadeOut(function() {
     sessionStorage.setItem("sm_password", password);
     if (sm.inbox.promptFunction) {
       sm.inbox.promptFunction(password);
@@ -192,22 +202,35 @@ sm.inbox.getEmailDisplays = function(data, callback) {
   })
 }
 
-var bannedElements = ["iframe", "script", "form"]
+sm.inbox.compose = function(to, subject, body) {
+  to = to || ""
+  subject = subject || ""
+  body = body || ""
 
-sm.inbox.sanitizeHTML = function(data) {
-  data = $(data)
+  $(".sm-send-container #send-to").val(to)
+  $(".sm-send-container #send-subject").val(subject)
+  $(".sm-send-container #send-body").text(body)
+  $(".sm-send-container").removeClass("sm-hidden closed")
+}
 
-  console.log(data);
+sm.inbox.closeCompose = function() {
+  $(".sm-send-container").addClass("closed")
+  setTimeout(function() {
+    $(".sm-send-container").addClass("sm-hidden")
+  }, 200)
+}
 
-  for (var i=0; i<bannedElements.length; i++) {
-    data.find(bannedElements[i]).remove()
-  }
-
-
-  data.find("*").attr("javascript", "")
-  data.find("*").attr("onclick", "")
-  data.find("*").attr("onhover", "")
-  data.find("*").attr("onhover", "")
-
-  return data.html()
+sm.inbox.send = function(to, subject, body) {
+  $.post("/inbox/send", {
+    to: to,
+    subject: subject,
+    body: body
+  }, function(res) {
+    if (res.status == "success") {
+      alert("Successfully sent email")
+      sm.inbox.closeCompose()
+    } else {
+      alert("Failed to send email: " + res.error)
+    }
+  }, "json")
 }

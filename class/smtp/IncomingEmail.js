@@ -40,7 +40,7 @@ class IncomingEmail extends Email {
     }
   }
 
-  process() {
+  process(cb) {
     this.parser.extractMeta((err, meta) =>{
       if (!err) {
         this.meta = meta
@@ -53,12 +53,12 @@ class IncomingEmail extends Email {
           Object.assign(indEmail, this)
           indEmail.user = this.recipients[i]
           indEmail.save(function(err, id) {
-            log.debug("should've saved?? " + id)
+            cb(null, id)
           });
         }
 
       } else {
-        log.debug("ERROR" + err.toString())
+        cb(new Error("Message is not formatted correctly"))
       }
     })
   }

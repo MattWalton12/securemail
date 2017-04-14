@@ -2,9 +2,9 @@ body, html {
   background-color:#efefef;
 }
 
-.sidebar {
+.sm-sidebar {
   position:fixed;
-  z-index:999;
+  z-index:995;
 
   width:300px;
   height:100%;
@@ -15,6 +15,10 @@ body, html {
   background-color:#3C5C7F;
   border-right:1px solid darken(#3C5C7F, 10%);
 
+  .sm-title {
+    margin-bottom:25px;
+  }
+
   h1 {
     color:#79B9FF;
     line-height:32px;
@@ -23,9 +27,15 @@ body, html {
       margin-right:5px;
     }
   }
+
+  .sm-btn {
+    box-sizing:border-box;
+    text-align:center;
+    color:#333;
+  }
 }
 
-.email-view-container {
+.sm-email-view-container {
   width:550px;
   height:100%;
   padding-top:80px;
@@ -38,13 +48,13 @@ body, html {
 
   transition:padding 0.2s ease-out, width 0.2s ease-out;
 
-  &.extended {
+  &.sm-extended {
     padding-top:10px;
     width:1100px;
   }
 }
 
-.email-view {
+.sm-email-view {
   width:100%;
   height:100%;
 
@@ -52,12 +62,12 @@ body, html {
   border:1px solid #bbb;
   box-sizing:border-box;
 
-  .email-header {
+  .sm-email-header {
     pointer-events:none;
     background-color:#3C5C7F;
     overflow:auto;
 
-    .email-details {
+    .sm-email-details {
       width:50%;
       display:block;
       float:left;
@@ -79,7 +89,7 @@ body, html {
       }
     }
 
-    .email-controls {
+    .sm-email-controls {
       pointer-events:auto;
       width:50%;
       display:block;
@@ -97,12 +107,14 @@ body, html {
     }
   }
 
-  .email-content {
+  .sm-email-content {
 
     #email-view-content-html {
       width:100%;
       height:100%;
       overflow:hidden;
+
+      @import "compass/reset";
     }
 
     #email-view-content-text {
@@ -114,7 +126,7 @@ body, html {
   }
 }
 
-.content-loader {
+.sm-content-loader {
   text-align:center;
   padding-top:200px;
 
@@ -125,24 +137,24 @@ body, html {
   }
 }
 
-.content-container {
+.sm-content-container {
   box-sizing:border-box;
   padding-left:300px;
   width:100%;
   overflow-x:hidden;
 
-  .topbar {
+  .sm-topbar {
     width:100%;
     height:70px;
     background-color:#3C5C7F;
     z-index:998;
 
-    .search-input-container {
+    .sm-search-input-container {
       margin-left:9px;
       padding-top:17px;
     }
 
-    .search-input {
+    .sm-search-input {
       display:block;
       padding:7px;
       font-size:0.9em;
@@ -154,7 +166,7 @@ body, html {
     }
   }
 
-  .list-overlay {
+  .sm-list-overlay {
     display:none;
     position:absolute;
     top:0px;
@@ -164,7 +176,7 @@ body, html {
     background-color:rgba(5, 5, 5, 0.9);
   }
 
-  .email-list {
+  .sm-email-list {
     position:absolute;
     z-index:-1;
     height:100%;
@@ -175,7 +187,7 @@ body, html {
 
     width:800px;
 
-    .emails {
+    .sm-emails {
       border-top:1px solid #bbb;
 
       h3 {
@@ -184,7 +196,7 @@ body, html {
       }
     }
 
-    .email {
+    .sm-email {
       display:block;
       border-bottom:1px solid #bbb;
       border-right:1px solid #bbb;
@@ -194,16 +206,16 @@ body, html {
       transition:background 0.2s ease-out;
 
 
-      .left {
+      .sm-left {
         display:inline-block;
         vertical-align:middle;
         width:610px;
       }
 
-      &.unread {
+      &.sm-unread {
         background-color:#fff;
 
-        .subject {
+        .sm-subject {
           font-weight:500;
         }
 
@@ -221,7 +233,7 @@ body, html {
 
       color:#555;
 
-      .from {
+      .sm-from {
         display:block;
         font-size:0.7em;
         line-height:1em;
@@ -229,10 +241,10 @@ body, html {
         padding-top:3px;
         white-space:nowrap;
         overflow:hidden;
-        text-overflow:elipsis;
+        text-overflow:ellipsis;
       }
 
-      .subject {
+      .sm-subject {
         display:block;
         font-size:1em;
         width:100%;
@@ -241,7 +253,7 @@ body, html {
         text-overflow:elipsis;
       }
 
-      .date {
+      .sm-date {
         text-align:right;
         display:inline-block;
         width:140px;
@@ -253,10 +265,10 @@ body, html {
 }
 
 
-.password-prompt-container {
+.sm-password-prompt-container {
   display:none;
 
-  .password-prompt {
+  .sm-password-prompt {
     width:400px;
     margin-left:auto;
     margin-right:auto;
@@ -264,7 +276,7 @@ body, html {
     background:#3C5C7F;
     border-radius:3px;
 
-    .prompt-header {
+    .sm-prompt-header {
       background-color:#efefef;
       padding:10px;
       text-align:center;
@@ -299,5 +311,59 @@ body, html {
         cursor:pointer;
       }
     }
+  }
+}
+
+.sm-send-container {
+  position:fixed;
+  z-index:996;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(10, 10, 10, 0.97);
+
+  &.closed {
+    opacity:0;
+  }
+
+  transition: opacity 0.2s ease-out;
+
+  .sm-send {
+    pointer-events: auto;
+    z-index:999;
+    width:700px;
+    height:550px;
+    background-color:#efefef;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:100px;
+    border-top:20px solid #3C5C7F;
+
+    input {
+      display:block;
+      width:100%;
+      box-sizing:border-box;
+      padding:8px;
+      border:0;
+      font-size:0.8em;
+      margin-top:3px;
+    }
+
+    textarea {
+      width:100%;
+      box-sizing:border-box;
+      border:0;
+      padding:8px;
+      resize: none;
+      margin-top:10px;
+      height:400px;
+    }
+
+    button {
+      margin-left:15px;
+      margin-top:15px;
+    }
+
   }
 }

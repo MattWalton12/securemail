@@ -9,15 +9,15 @@ body, html {
   color:#4c4c4c;
 }
 
-h1, h2, h3, h4 {
+.sm-h {
   font-family: "Roboto Slab", sans-serif;
   color:#2C91FF;
 }
 
-h1 {
+.sm-h1 {
   font-size:2em;
 }
-h2 {
+.sm-h2 {
   font-family:"Roboto", sans-serif;
   font-weight:bold;
   font-size:1.6em;
@@ -27,11 +27,11 @@ a {
   color:#2374CC;
   text-decoration:none;
 
-  &:hover {
+  &:hover:not(.sm-btn) {
     text-decoration:underline;
   }
 }
 
-.hidden {
+.sm-hidden {
   display:none;
 }
