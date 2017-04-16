@@ -13,6 +13,8 @@ exports.list = function(req, res) {
     amount = parseInt(req.query.amount),
     type = parseInt(req.query.type) || 1;
 
+  console.log(start, amount, type)
+
   if (start != undefined && start >= 0 && amount && amount > 0 && amount < 100) {
     email.list(req.user, start, amount, type, function(err, emails, count) {
       res.json({

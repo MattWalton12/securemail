@@ -225,6 +225,26 @@ body, html {
       }
     }
 
+    .sm-loadmore {
+      margin-top:20px;
+      margin-bottom:20px;
+
+      a {
+        color:#444;
+      }
+    }
+
+    .sm-pagination {
+      padding-top:10px;
+      padding-bottom:20px;
+      padding-left:10px;
+
+      .sm-btn {
+        background-color:lighten(#2374CC, 35%);
+        color:#444;
+      }
+    }
+
     .sm-email {
       display:block;
       border-bottom:1px solid #bbb;

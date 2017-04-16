@@ -31,9 +31,12 @@ sm.inbox.init = function(cb) {
   });
 }
 
+sm.inbox.loaded = 0
+
 sm.inbox.load = function(cb) {
   var loadAmount = Math.ceil((window.innerHeight / 57) * 1.7)
-  $.getJSON("/inbox/list?start=" + sm.inbox.index + "&amount=" + loadAmount + "&type=" + sm.inbox.typ, function(data) {
+  $.getJSON("/inbox/list?start=" + sm.inbox.index + "&amount=" + loadAmount + "&type=" + sm.inbox.type, function(data) {
+    sm.inbox.loaded = sm.inbox.index + loadAmount
     cb(null, data.emails, data.unread)
   });
 }

@@ -41,10 +41,15 @@ function updateEmailActions(id) {
   })
 }
 
-function updateEmails() {
+function updateEmails(clear) {
   sm.inbox.load(function(err, emails, count) {
     $("#sm-unread-count").text(count);
     document.title = "("+ count + ") Inbox | SecureMail"
+
+    if (clear) {
+      sm.inbox.index = 0
+      $(".sm-emails li").remove()
+    }
 
     for (var i=0; i<emails.length; i++) {
       createInboxElement(emails[i]);
@@ -59,7 +64,7 @@ $(document).ready(function() {
     });
   });
 
-  updateEmails()
+  updateEmails(true)
 
   $("#password-prompt-form").submit(function(e) {
     e.preventDefault();
@@ -99,6 +104,13 @@ $(document).ready(function() {
     sm.inbox.type = 2
     updateEmails()
   })
+
+  $("#sm-page-inbox").click(function(e) {
+    e.preventDefault()
+    sm.inbox.type = 1
+    updateEmails(true)
+  })
+
 })
 setInterval(function() {
   $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
