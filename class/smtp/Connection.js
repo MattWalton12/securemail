@@ -16,7 +16,7 @@ const IncomingEmail = require("./IncomingEmail.js");
 const AcceptedCommands = [
   "EHLO",
   "HELO",
-  "STARTTLS",
+//  "STARTTLS",
   "MAIL",
   "RCPT",
   "DATA",

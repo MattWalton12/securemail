@@ -33,8 +33,36 @@ body, html {
   text-align: center;
   color: #333;
 }
+/* line 37, ../../sass/interface.scss */
+.sm-sidebar .sm-page-list {
+  color: white;
+  margin-top: 20px;
+}
+/* line 41, ../../sass/interface.scss */
+.sm-sidebar .sm-page-list li {
+  margin-top: 5px;
+}
+/* line 45, ../../sass/interface.scss */
+.sm-sidebar .sm-page-list a {
+  color: white;
+  font-size: 1em;
+  display: block;
+  padding: 7px 10px 7px 10px;
+  background: #446990;
+  transition: background-color 0.2s ease-out, padding 0.2s ease-out;
+}
+/* line 54, ../../sass/interface.scss */
+.sm-sidebar .sm-page-list a.selected {
+  background: #507aa9;
+}
+/* line 58, ../../sass/interface.scss */
+.sm-sidebar .sm-page-list a:hover {
+  background-color: #79B9FF;
+  text-decoration: none;
+  padding-left: 10px;
+}
 
-/* line 38, ../../sass/interface.scss */
+/* line 67, ../../sass/interface.scss */
 .sm-email-view-container {
   width: 550px;
   height: 100%;
@@ -47,13 +75,13 @@ body, html {
   padding-left: 550px;
   transition: padding 0.2s ease-out, width 0.2s ease-out;
 }
-/* line 51, ../../sass/interface.scss */
+/* line 80, ../../sass/interface.scss */
 .sm-email-view-container.sm-extended {
   padding-top: 10px;
   width: 1100px;
 }
 
-/* line 57, ../../sass/interface.scss */
+/* line 86, ../../sass/interface.scss */
 .sm-email-view {
   width: 100%;
   height: 100%;
@@ -61,13 +89,13 @@ body, html {
   border: 1px solid #bbb;
   box-sizing: border-box;
 }
-/* line 65, ../../sass/interface.scss */
+/* line 94, ../../sass/interface.scss */
 .sm-email-view .sm-email-header {
   pointer-events: none;
   background-color: #3C5C7F;
   overflow: auto;
 }
-/* line 70, ../../sass/interface.scss */
+/* line 99, ../../sass/interface.scss */
 .sm-email-view .sm-email-header .sm-email-details {
   width: 50%;
   display: block;
@@ -75,21 +103,21 @@ body, html {
   padding: 10px;
   box-sizing: border-box;
 }
-/* line 77, ../../sass/interface.scss */
+/* line 106, ../../sass/interface.scss */
 .sm-email-view .sm-email-header .sm-email-details h2 {
   color: white;
   font-weight: 500;
   margin-bottom: 3px;
   font-size: 1em;
 }
-/* line 84, ../../sass/interface.scss */
+/* line 113, ../../sass/interface.scss */
 .sm-email-view .sm-email-header .sm-email-details span {
   display: block;
   margin-top: 3px;
   font-size: 0.8em;
   color: #DDD;
 }
-/* line 92, ../../sass/interface.scss */
+/* line 121, ../../sass/interface.scss */
 .sm-email-view .sm-email-header .sm-email-controls {
   pointer-events: auto;
   width: 50%;
@@ -100,13 +128,13 @@ body, html {
   text-align: right;
   box-sizing: border-box;
 }
-/* line 102, ../../sass/interface.scss */
+/* line 131, ../../sass/interface.scss */
 .sm-email-view .sm-email-header .sm-email-controls a {
   display: inline-block;
   padding: 10px;
   box-sizing: border-box;
 }
-/* line 112, ../../sass/interface.scss */
+/* line 141, ../../sass/interface.scss */
 .sm-email-view .sm-email-content #email-view-content-html {
   width: 100%;
   height: 100%;
@@ -169,7 +197,7 @@ body, html {
 .sm-email-view .sm-email-content #email-view-content-html article, .sm-email-view .sm-email-content #email-view-content-html aside, .sm-email-view .sm-email-content #email-view-content-html details, .sm-email-view .sm-email-content #email-view-content-html figcaption, .sm-email-view .sm-email-content #email-view-content-html figure, .sm-email-view .sm-email-content #email-view-content-html footer, .sm-email-view .sm-email-content #email-view-content-html header, .sm-email-view .sm-email-content #email-view-content-html hgroup, .sm-email-view .sm-email-content #email-view-content-html main, .sm-email-view .sm-email-content #email-view-content-html menu, .sm-email-view .sm-email-content #email-view-content-html nav, .sm-email-view .sm-email-content #email-view-content-html section, .sm-email-view .sm-email-content #email-view-content-html summary {
   display: block;
 }
-/* line 120, ../../sass/interface.scss */
+/* line 149, ../../sass/interface.scss */
 .sm-email-view .sm-email-content #email-view-content-text {
   width: 100%;
   padding: 10px;
@@ -177,38 +205,38 @@ body, html {
   box-sizing: border-box;
 }
 
-/* line 129, ../../sass/interface.scss */
+/* line 158, ../../sass/interface.scss */
 .sm-content-loader {
   text-align: center;
   padding-top: 200px;
 }
-/* line 133, ../../sass/interface.scss */
+/* line 162, ../../sass/interface.scss */
 .sm-content-loader p {
   font-weight: 500;
   margin-bottom: 30px;
   font-size: 1.1em;
 }
 
-/* line 140, ../../sass/interface.scss */
+/* line 169, ../../sass/interface.scss */
 .sm-content-container {
   box-sizing: border-box;
   padding-left: 300px;
   width: 100%;
   overflow-x: hidden;
 }
-/* line 146, ../../sass/interface.scss */
+/* line 175, ../../sass/interface.scss */
 .sm-content-container .sm-topbar {
   width: 100%;
   height: 70px;
   background-color: #3C5C7F;
   z-index: 998;
 }
-/* line 152, ../../sass/interface.scss */
+/* line 181, ../../sass/interface.scss */
 .sm-content-container .sm-topbar .sm-search-input-container {
   margin-left: 9px;
   padding-top: 17px;
 }
-/* line 157, ../../sass/interface.scss */
+/* line 186, ../../sass/interface.scss */
 .sm-content-container .sm-topbar .sm-search-input {
   display: block;
   padding: 7px;
@@ -218,7 +246,7 @@ body, html {
   border-radius: 3px;
   border: 1px solid #2c435c;
 }
-/* line 169, ../../sass/interface.scss */
+/* line 198, ../../sass/interface.scss */
 .sm-content-container .sm-list-overlay {
   display: none;
   position: absolute;
@@ -228,7 +256,7 @@ body, html {
   height: 100%;
   background-color: rgba(5, 5, 5, 0.9);
 }
-/* line 179, ../../sass/interface.scss */
+/* line 208, ../../sass/interface.scss */
 .sm-content-container .sm-email-list {
   position: absolute;
   z-index: -1;
@@ -239,16 +267,16 @@ body, html {
   overflow-y: scroll;
   width: 800px;
 }
-/* line 190, ../../sass/interface.scss */
+/* line 219, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-emails {
   border-top: 1px solid #bbb;
 }
-/* line 193, ../../sass/interface.scss */
+/* line 222, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-emails h3 {
   text-align: center;
   margin-top: 20px;
 }
-/* line 199, ../../sass/interface.scss */
+/* line 228, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email {
   display: block;
   border-bottom: 1px solid #bbb;
@@ -257,30 +285,30 @@ body, html {
   transition: background 0.2s ease-out;
   color: #555;
 }
-/* line 209, ../../sass/interface.scss */
+/* line 238, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email .sm-left {
   display: inline-block;
   vertical-align: middle;
   width: 610px;
 }
-/* line 215, ../../sass/interface.scss */
+/* line 244, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email.sm-unread {
   background-color: #fff;
 }
-/* line 218, ../../sass/interface.scss */
+/* line 247, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email.sm-unread .sm-subject {
   font-weight: 500;
 }
-/* line 225, ../../sass/interface.scss */
+/* line 254, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email:hover {
   text-decoration: none;
   background-color: #79B9FF;
 }
-/* line 230, ../../sass/interface.scss */
+/* line 259, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email.active {
   background-color: #79B9FF;
 }
-/* line 236, ../../sass/interface.scss */
+/* line 265, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email .sm-from {
   display: block;
   font-size: 0.7em;
@@ -291,7 +319,7 @@ body, html {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 247, ../../sass/interface.scss */
+/* line 276, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email .sm-subject {
   display: block;
   font-size: 1em;
@@ -300,7 +328,7 @@ body, html {
   overflow: hidden;
   text-overflow: elipsis;
 }
-/* line 256, ../../sass/interface.scss */
+/* line 285, ../../sass/interface.scss */
 .sm-content-container .sm-email-list .sm-email .sm-date {
   text-align: right;
   display: inline-block;
@@ -308,11 +336,11 @@ body, html {
   font-size: 0.8em;
 }
 
-/* line 268, ../../sass/interface.scss */
+/* line 297, ../../sass/interface.scss */
 .sm-password-prompt-container {
   display: none;
 }
-/* line 271, ../../sass/interface.scss */
+/* line 300, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt {
   width: 400px;
   margin-left: auto;
@@ -321,19 +349,19 @@ body, html {
   background: #3C5C7F;
   border-radius: 3px;
 }
-/* line 279, ../../sass/interface.scss */
+/* line 308, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt .sm-prompt-header {
   background-color: #efefef;
   padding: 10px;
   text-align: center;
 }
-/* line 284, ../../sass/interface.scss */
+/* line 313, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt .sm-prompt-header h2 {
   color: #3C5C7F;
   font-weight: 500;
   font-size: 1.2em;
 }
-/* line 291, ../../sass/interface.scss */
+/* line 320, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt input {
   margin-left: auto;
   margin-right: auto;
@@ -343,7 +371,7 @@ body, html {
   width: 70%;
   display: block;
 }
-/* line 301, ../../sass/interface.scss */
+/* line 330, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt button {
   display: block;
   width: 100%;
@@ -352,13 +380,13 @@ body, html {
   color: #efefef;
   padding: 10px 0px 10px 0px;
 }
-/* line 309, ../../sass/interface.scss */
+/* line 338, ../../sass/interface.scss */
 .sm-password-prompt-container .sm-password-prompt button:hover {
   background-color: #79B9FF;
   cursor: pointer;
 }
 
-/* line 317, ../../sass/interface.scss */
+/* line 346, ../../sass/interface.scss */
 .sm-send-container {
   position: fixed;
   z-index: 996;
@@ -369,11 +397,11 @@ body, html {
   background-color: rgba(10, 10, 10, 0.97);
   transition: opacity 0.2s ease-out;
 }
-/* line 326, ../../sass/interface.scss */
+/* line 355, ../../sass/interface.scss */
 .sm-send-container.closed {
   opacity: 0;
 }
-/* line 332, ../../sass/interface.scss */
+/* line 361, ../../sass/interface.scss */
 .sm-send-container .sm-send {
   pointer-events: auto;
   z-index: 999;
@@ -385,7 +413,7 @@ body, html {
   margin-top: 100px;
   border-top: 20px solid #3C5C7F;
 }
-/* line 343, ../../sass/interface.scss */
+/* line 372, ../../sass/interface.scss */
 .sm-send-container .sm-send input {
   display: block;
   width: 100%;
@@ -395,7 +423,7 @@ body, html {
   font-size: 0.8em;
   margin-top: 3px;
 }
-/* line 353, ../../sass/interface.scss */
+/* line 382, ../../sass/interface.scss */
 .sm-send-container .sm-send textarea {
   width: 100%;
   box-sizing: border-box;
@@ -405,7 +433,7 @@ body, html {
   margin-top: 10px;
   height: 400px;
 }
-/* line 363, ../../sass/interface.scss */
+/* line 392, ../../sass/interface.scss */
 .sm-send-container .sm-send button {
   margin-left: 15px;
   margin-top: 15px;

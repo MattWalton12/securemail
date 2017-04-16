@@ -10,17 +10,18 @@ exports.render = function(req, res) {
 
 exports.list = function(req, res) {
   let start = parseInt(req.query.start),
-    amount = parseInt(req.query.amount);
-
-  console.log(start, amount)
+    amount = parseInt(req.query.amount),
+    type = parseInt(req.query.type);
 
   if (start != undefined && start >= 0 && amount && amount > 0 && amount < 100) {
-    email.list(req.user, start, amount, function(err, emails) {
+    email.list(req.user, start, amount, type, function(err, emails, count) {
       res.json({
         status: "success",
-        emails: emails
+        emails: emails,
+        unread: count
       })
     });
+
   } else {
     res.json({
       status: "error",
