@@ -42,14 +42,14 @@ function updateEmailActions(id) {
 }
 
 function updateEmails(clear) {
+  if (clear) {
+    sm.inbox.index = 0
+    $(".sm-emails li").remove()
+  }
+
   sm.inbox.load(function(err, emails, count) {
     $("#sm-unread-count").text(count);
     document.title = "("+ count + ") Inbox | SecureMail"
-
-    if (clear) {
-      sm.inbox.index = 0
-      $(".sm-emails li").remove()
-    }
 
     for (var i=0; i<emails.length; i++) {
       createInboxElement(emails[i]);
