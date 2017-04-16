@@ -11,7 +11,7 @@ exports.render = function(req, res) {
 exports.list = function(req, res) {
   let start = parseInt(req.query.start),
     amount = parseInt(req.query.amount),
-    type = parseInt(req.query.type);
+    type = parseInt(req.query.type) || 1;
 
   if (start != undefined && start >= 0 && amount && amount > 0 && amount < 100) {
     email.list(req.user, start, amount, type, function(err, emails, count) {
