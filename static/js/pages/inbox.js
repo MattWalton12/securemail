@@ -11,7 +11,7 @@ function createInboxElement(email) {
   email.name = sm.mime.parseSubject(email.name)
 
   var html = "<li>"
-    + "<a href='#' id='email-" + email.id + "' class='sm-email" + (email.marked_read == 0 && " unread" || "") + "' data-id='" + email.id + "'>"
+    + "<a href='#' id='email-" + email.id + "' class='sm-email" + (email.marked_read == 0 && " sm-unread" || "") + "' data-id='" + email.id + "'>"
       + "<div class='sm-left'>"
         + "<span class='sm-subject'>" + email.subject + "</span>"
         + "<span class='sm-from'>" + email.name + "</span>"
