@@ -102,7 +102,7 @@ $(document).ready(function() {
   $("#sm-page-sent").click(function(e) {
     e.preventDefault()
     sm.inbox.type = 2
-    updateEmails()
+    updateEmails(true)
   })
 
   $("#sm-page-inbox").click(function(e) {
@@ -111,6 +111,10 @@ $(document).ready(function() {
     updateEmails(true)
   })
 
+  $("#load-more-btn").click(function(e) {
+    e.preventDefault()
+    updateEmails()
+  })
 })
 setInterval(function() {
   $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
