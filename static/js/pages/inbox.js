@@ -44,6 +44,7 @@ function updateEmailActions(id) {
 function updateEmails(clear) {
   if (clear) {
     sm.inbox.index = 0
+    sm.inbox.search = ""
     $(".sm-emails li").remove()
   }
 
@@ -114,6 +115,12 @@ $(document).ready(function() {
   $("#load-more-btn").click(function(e) {
     e.preventDefault()
     updateEmails()
+  })
+
+  $("#search-form").submit(function(e) {
+    e.preventDefault()
+    sm.inbox.search = $("#search-input").val()
+    updateEmails(true)
   })
 })
 setInterval(function() {

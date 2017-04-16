@@ -1,6 +1,7 @@
 sm.inbox = {}
 sm.inbox.index = 0;
 sm.inbox.type = 1;
+sm.inbox.search = ""
 
 sm.inbox.keys = {};
 
@@ -35,7 +36,7 @@ sm.inbox.loaded = 0
 
 sm.inbox.load = function(cb) {
   var loadAmount = Math.ceil((window.innerHeight / 57) * 1.7)
-  $.getJSON("/inbox/list?start=" + sm.inbox.index + "&amount=" + loadAmount + "&type=" + sm.inbox.type, function(data) {
+  $.getJSON("/inbox/list?start=" + sm.inbox.index + "&amount=" + loadAmount + "&type=" + sm.inbox.type + "&search=" + sm.inbox.search, function(data) {
     sm.inbox.loaded = sm.inbox.index + loadAmount
     sm.inbox.index += loadAmount
     cb(null, data.emails, data.unread)
