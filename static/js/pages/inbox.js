@@ -41,9 +41,10 @@ function updateEmailActions(id) {
   })
 }
 
-function updateEmails(clear) {
+function updateEmails(clear, search) {
   if (clear) {
-    sm.inbox.index = 0
+    if (!search)
+      sm.inbox.index = 0
     sm.inbox.search = ""
     $(".sm-emails li").remove()
   }
@@ -120,7 +121,7 @@ $(document).ready(function() {
   $("#search-form").submit(function(e) {
     e.preventDefault()
     sm.inbox.search = $("#search-input").val()
-    updateEmails(true)
+    updateEmails(true, true)
   })
 })
 setInterval(function() {
