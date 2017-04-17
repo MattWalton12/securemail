@@ -125,6 +125,12 @@ $(document).ready(function() {
     sm.inbox.index = 0
     updateEmails(true, true)
   })
+
+  $("#email-reply").click(function(e) {
+    e.preventDefault()
+    e.stopPropagation()
+    sm.inbox.compose(sm.inbox.currentMessage.email, "Re: " + sm.inbox.currentMessage.subject, "")
+  })
 })
 setInterval(function() {
   $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")

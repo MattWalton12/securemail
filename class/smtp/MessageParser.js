@@ -73,10 +73,11 @@ class MessageParser {
   extractMeta(cb) {
     let meta = {}
 
-    this.parse(true);
+    this.parse(true)
 
     if (this.headers["from"] && this.headers["date"]) {
 
+      meta.in_reply_to = ""
       meta.from = util.processAddress(this.headers["from"])
 
       if (this.headers["message-id"])
@@ -94,6 +95,12 @@ class MessageParser {
 
       if (this.headers["subject"])
         meta.subject = this.headers["subject"]
+
+      if (this.headers["references"])
+        meta.references = this.headers["references"].split(" ")
+
+      if (this.headers["in-reply-to"])
+        meta.in_reply_to = this.headers["in-reply-to"]
 
       cb(null, meta);
 

@@ -1,9 +1,0 @@
-{
-  "domain": "sm.hatt.co",
-
-  "database": {
-    "host": "localhost",
-    "user": "root",
-    "database": "email"
-  }
-}

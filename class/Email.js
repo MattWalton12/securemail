@@ -14,6 +14,8 @@ class Email {
     this.meta = {}
     this.recipients = []
     this.type = 2
+    this.references = []
+    this.replyTo = ""
   }
 
   setSubject(subject) {
@@ -41,6 +43,14 @@ class Email {
 
   }
 
+  setMessageID(id) {
+    if (!id) {
+      id = email.generateID()
+    }
+
+    this.meta.messageID = id
+  }
+
   setBody(body) {
     this.body = body
   }
@@ -53,13 +63,21 @@ class Email {
     this.user = user
   }
 
+  addReference(ref, inReplyTo) {
+    ref = ref.replace(new RegExp("<", "g"), "")
+    ref = ref.replace(new RegExp(">", "g"), "")
+
+    this.references.push(ref)
+    if (inReplyTo)
+      this.replyTo = ref
+  }
+
   save(cb) {
     if (this.user && this.data) {
       crypto.encrypt(this.user.keys.public, this.data, (err, data, key) => {
-        database.query("INSERT INTO emails(userid, subject, email, name, date, encrypted_key, type) VALUES(?, ?, ?, ?, NOW(), ?, ?)",
-          [this.user.id, this.meta.subject, (this.type == 2 && this.recipients.join(";") || this.sender.address), (this.type == 2 && "" || this.sender.name), key, this.type],
-
-          function(err, resp) {
+        database.query("INSERT INTO emails(userid, subject, email, name, date, encrypted_key, type, message_id) VALUES(?, ?, ?, ?, NOW(), ?, ?, ?)",
+          [this.user.id, this.meta.subject, (this.type == 2 && this.recipients.join(";") || this.sender.address), (this.type == 2 && "" || this.sender.name), key, this.type, this.meta.messageID],
+          (err, resp) => {
             if (err)
               return cb(err);
 
@@ -68,6 +86,17 @@ class Email {
 
             this.id = id
             cb(null, id);
+
+            // now we process the references
+
+            for (var i=0; i<this.references.length; i++) {
+              database.query("SELECT id FROM emails WHERE message_id=?", [this.references[i]], (err, res) => {
+                if (res && res[0] && res[0].id) {
+                  database.query("INSERT INTO email_references(email, reference, direct_reply) VALUES(?, ?, ?)", [id, res[0].id, (this.references[i] == this.replyTo)])
+                }
+              })
+            }
+
           }
         )
       })
@@ -113,6 +142,8 @@ class Email {
       recipients.push("<" + this.recipients[i] + ">")
       recipientDomains.push(this.recipients[i].split("@")[1].toLowerCase())
     }
+
+    this.setMessageID()
 
     let doSend = () => {
       if (recipientDomains[index]) {

@@ -57,9 +57,11 @@ sm.inbox.retrieve = function(id, cb) {
 }
 
 sm.inbox.currentRawMessage = ""
+sm.inbox.currentMessage = {}
 
 sm.inbox.updateView = function(email, message) {
   email.date = new Date(email.date * 1000);
+  sm.inbox.currentMessage = email
 
   $("#email-view-subject").html(sm.mime.parseSubject(email.subject));
   $("#email-view-from").html(email.email);

@@ -47,6 +47,13 @@ class IncomingEmail extends Email {
         this.data = this.parser.originalMessage
 
         this.setSender(this.meta.from)
+        this.setMessageID(this.meta.message_id)
+
+        if (this.meta.references) {
+          for (var i=0; i<this.meta.references.length; i++) {
+            this.addReference(this.meta.references[i], (this.meta.references[i] == this.meta.in_reply_to))
+          }
+        }
 
         for (var i=0; i<this.recipients.length; i++) {
           let indEmail = new IncomingEmail()

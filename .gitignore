@@ -56,4 +56,6 @@ typings/
 .env
 .DS_Store
 .sass-cache/
+
 email_store/
+config.json
