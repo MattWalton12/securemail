@@ -34,8 +34,8 @@ function updateEmailActions(id) {
 
     var id = $(this).data("id");
 
-    sm.inbox.retrieve(id, function(err, email, message) {
-      sm.inbox.updateView(email, message);
+    sm.inbox.retrieve(id, function(err, email, message, tags) {
+      sm.inbox.updateView(email, message, tags);
       sm.inbox.openView();
     });
   })
@@ -130,6 +130,47 @@ $(document).ready(function() {
     e.preventDefault()
     e.stopPropagation()
     sm.inbox.compose(sm.inbox.currentMessage.email, "Re: " + sm.inbox.currentMessage.subject, "")
+  })
+
+  $("#email-delete").click(function(e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    var res = confirm("Are you sure you want to delete this message?")
+
+    if (res) {
+      sm.inbox.delete(sm.inbox.currentMessage.id)
+    }
+
+  })
+
+  $("#email-tag").click(function(e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($(".sm-email-tags").is(":visible")) {
+      $(".sm-email-tags").hide()
+    } else {
+      $(".sm-email-tags").show()
+    }
+  })
+
+  $("#new-tag-form").submit(function(e) {
+    e.preventDefault();
+    var tag = $("#new-tag").val()
+
+    sm.inbox.createTag(tag, function(err) {
+      if (err) {
+        alert(err.message)
+      } else {
+        sm.inbox.updateTags()
+        $("#new-tag").val("")
+      }
+    });
+  })
+
+  $(".sm-email-tags").click(function(e) {
+    e.stopPropagation()
   })
 })
 setInterval(function() {

@@ -36,7 +36,7 @@ exports.retrieve = function(req, res) {
   let id = parseInt(req.query.id);
 
   if (id) {
-    email.retrieve(req.user, id, function(err, email, data) {
+    email.retrieve(req.user, id, function(err, email, data, tags) {
       if (err) {
         res.json({
           status: "error",
@@ -47,7 +47,8 @@ exports.retrieve = function(req, res) {
         res.json({
           status: "success",
           email: email,
-          data: data
+          data: data,
+          tags: tags
         })
       }
     })
@@ -90,9 +91,7 @@ exports.send = function(req, res) {
     newEmail.setBody(body)
     newEmail.setUser(req.user)
 
-    console.log("Test")
     newEmail.build(function() {
-      console.log("test2")
       newEmail.save(function() {
         newEmail.queue()
 
@@ -106,6 +105,105 @@ exports.send = function(req, res) {
     res.json({
       status: "error",
       error: "Invalid recipients or body"
+    })
+  }
+}
+
+exports.getTags = function(req, res) {
+  email.getTags(req.user.id, function(err, tags) {
+    if (err) {
+      res.json({
+        status: "error",
+        error: err.message
+      })
+    } else {
+      res.json({
+        status: "success",
+        tags: tags
+      })
+    }
+  })
+}
+
+exports.createTag = function(req, res) {
+  let tag = (req.body.tag || "").toString()
+
+  if (tag.length > 2) {
+    email.createTag(req.user.id, tag, function(err, id) {
+      if (err) {
+        res.json({
+          status: "error",
+          error: err.message
+        })
+      } else {
+        res.json({
+          status: "success",
+          id: id
+        })
+      }
+    })
+  } else {
+    res.json({
+      status: "error",
+      error: "Please enter a valid tag name"
+    })
+  }
+}
+
+exports.addTag = function(req, res) {
+  let id = req.body.email
+  let tag = req.body.tag
+
+  if (id && tag) {
+    email.addTag(req.user.id, id, tag)
+    res.json({
+      status: "success"
+    })
+  } else {
+    res.json({
+      status: "error",
+      error: "invalid params"
+    })
+  }
+}
+
+exports.removeTag = function(req, res) {
+  let id = req.body.email
+  let tag = req.body.tag
+
+  if (id && tag) {
+    email.removeTag(req.user.id, id, tag)
+    res.json({
+      status: "success"
+    })
+  } else {
+    res.json({
+      status: "error",
+      error: "invalid params"
+    })
+  }
+}
+
+exports.delete = function(req, res) {
+  let id = req.body.id
+
+  if (id) {
+    email.delete(req.user.id, id, function(err) {
+      if (err) {
+        res.json({
+          status: "error",
+          error: err.message
+        })
+      } else {
+        res.json({
+          status: "success"
+        })
+      }
+    });
+  } else {
+    res.json({
+      status: "error",
+      error: "Please enter an ID to delete"
     })
   }
 }

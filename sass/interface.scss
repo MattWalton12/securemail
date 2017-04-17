@@ -19,6 +19,13 @@ body, html {
     margin-bottom:25px;
   }
 
+  .sm-tag-title {
+    color:lighten(#3C5C7F, 15%);
+    margin-top:20px;
+  }
+
+
+
   h1 {
     color:#79B9FF;
     line-height:32px;
@@ -37,6 +44,29 @@ body, html {
   .sm-page-list {
     color:white;
     margin-top:20px;
+
+    &.tags {
+      margin-top:10px;
+
+      .new-tag {
+        margin-top:10px;
+
+        input {
+          display:block;
+          box-sizing:border-box;
+          background:lighten(#3C5C7F, 5%);
+          width:100%;
+          padding:8px;
+          border:0;
+          color:white;
+
+          &::placeholder {
+            color:white;
+            font-size:1em;
+          }
+        }
+      }
+    }
 
     li {
       margin-top:5px;
@@ -62,6 +92,8 @@ body, html {
       }
     }
   }
+
+
 }
 
 .sm-email-view-container {
@@ -414,5 +446,23 @@ body, html {
       margin-top:15px;
     }
 
+  }
+}
+
+.sm-email-tags {
+  background-color:lighten(#3c5c7f, 5%);
+  padding:8px;
+  text-align:left;
+  color:white;
+  display:none;
+
+  h4 {
+    margin-bottom:10px;
+    font-size:1.1em;
+    color:lighten(#3c5c7f, 25%);
+  }
+
+  input {
+    margin-right:8px;
   }
 }

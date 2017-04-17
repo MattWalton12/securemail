@@ -90,7 +90,7 @@ class SMTPConnection {
   cmd_EHLO(params) {
     if (params.length > 0) {
       this.writeLine("250-SIZE 100000");
-      this.writeLine("250-STARTTLS");
+      //this.writeLine("250-STARTTLS");
       this.writeLine("250-HELP");
       this.response(250, config.domain + " ready");
 

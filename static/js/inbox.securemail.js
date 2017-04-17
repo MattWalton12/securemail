@@ -4,7 +4,7 @@ sm.inbox.type = 1;
 sm.inbox.search = ""
 
 sm.inbox.keys = {};
-
+sm.inbox.tags = {};
 
 sm.inbox.init = function(cb) {
 
@@ -30,6 +30,8 @@ sm.inbox.init = function(cb) {
       }
     });
   });
+
+  sm.inbox.updateTags()
 }
 
 sm.inbox.loaded = 0
@@ -48,7 +50,7 @@ sm.inbox.retrieve = function(id, cb) {
     if (data.status == "success") {
       var dd = forge.util.decode64(data.data);
       sm.crypto.decrypt(sm.inbox.keys.private, data.data, data.email.encrypted_key, function(err, message) {
-        cb(err, data.email, message);
+        cb(err, data.email, message, data.tags);
       });
     } else {
       alert("Failed to load email");
@@ -59,7 +61,7 @@ sm.inbox.retrieve = function(id, cb) {
 sm.inbox.currentRawMessage = ""
 sm.inbox.currentMessage = {}
 
-sm.inbox.updateView = function(email, message) {
+sm.inbox.updateView = function(email, message, tags) {
   email.date = new Date(email.date * 1000);
   sm.inbox.currentMessage = email
 
@@ -68,6 +70,12 @@ sm.inbox.updateView = function(email, message) {
   $("#email-view-date").html(sm.inbox.formatDate(email.date));
 
   sm.inbox.currentRawMessage = message
+
+  $(".sm-email-tags input").each(function() {
+    if (tags.indexOf($(this).data("id")) > -1) {
+      $(this).prop("checked", true)
+    }
+  })
 
   sm.inbox.getEmailDisplays(message, function(err, displays) {
     if (displays[0]) {
@@ -84,8 +92,6 @@ sm.inbox.updateView = function(email, message) {
         $("#email-view-content-html").show()
 
         var iframe = $("#email-view-content-html").contents();
-        console.log("TEST")
-        console.log(iframe.find("a"))
         iframe.find("a").click(function(e) {
           e.preventDefault();
           var link = $(this).attr("href")
@@ -239,6 +245,85 @@ sm.inbox.send = function(to, subject, body) {
       sm.inbox.closeCompose()
     } else {
       alert("Failed to send email: " + res.error)
+    }
+  }, "json")
+}
+
+sm.inbox.addEmailTag = function(emailID, tagID) {
+  $.post("/inbox/addEmailTag", {
+    email: emailID,
+    tag: tagID
+  }, "json")
+}
+
+sm.inbox.removeEmailTag = function(emailID, tagID) {
+  $.post("/inbox/removeEmailTag", {
+    email: emailID,
+    tag: tagID
+  }, "json")
+}
+
+sm.inbox.updateTags = function() {
+  $.getJSON("/inbox/getTags", function(res) {
+    if (res.status == "success") {
+      $("#tag-list li:not(.new-tag)").remove();
+      $(".sm-email-tags li").remove();
+
+      for (var i=0; i<res.tags.length; i++) {
+        var html = "<li><a href='#' class='tag-link' data-id='" + res.tags[i].id + "'>" + res.tags[i].tag + "</a></li>";
+        $(html).insertBefore("#tag-list .new-tag")
+
+        html = "<li><input type='checkbox' id='email-tag-" + res.tags[i].id + "' data-id='"+ res.tags[i].id + "'><label for='email-tag-" + res.tags[i].id + "'>" + res.tags[i].tag + "</label></li>"
+        $(".sm-email-tags ul").append(html);
+
+        sm.inbox.tags[res.tags[i].id] = res.tags[i].tag
+      }
+
+      $(".sm-email-tags input").change(function() {
+        if (this.checked) {
+          sm.inbox.addEmailTag(sm.inbox.currentMessage.id, $(this).data("id"))
+        } else {
+          sm.inbox.removeEmailTag(sm.inbox.currentMessage.id, $(this).data("id"))
+        }
+      })
+
+      $("#tag-list a").click(function(e) {
+        e.preventDefault()
+        sm.inbox.search = "tag:" + $(this).data("id")
+        $("#search-input").val(sm.inbox.search)
+        sm.inbox.index = 0
+        updateEmails(true, true)
+      })
+
+    } else {
+      alert("Error getting tags: " + res.error)
+    }
+  })
+
+
+}
+
+sm.inbox.createTag = function(tag, cb) {
+  $.post("/inbox/createTag", {
+    tag: tag
+  }, function(res) {
+    if (res.status == "success")
+      cb()
+    else
+      cb(new Error(res.error))
+  }, "json")
+}
+
+sm.inbox.delete = function(id) {
+  $.post("/inbox/delete", {
+    id: id
+  }, function(res) {
+    if (res.status == "success") {
+      $("#email-" + id).remove()
+      sm.inbox.shrinkView()
+      $(".sm-email-view-container").css("padding-left", "550px")
+    } else {
+      alert("Failed to delete message: " + res.error)
     }
   }, "json")
 }

@@ -39,16 +39,21 @@ app.use(function(req, res, next) {
   }
 });
 
-app.get("/login", routes.auth.renderLogin);
-app.get("/register", routes.auth.renderRegister);
-app.post("/register", routes.auth.register);
-app.get("/login/challenge", routes.auth.challenge);
-app.post("/login/response", routes.auth.response);
-app.get("/inbox", middleware.authed, routes.inbox.render);
-app.get("/inbox/list", middleware.authed, routes.inbox.list);
-app.get("/inbox/retrieve", middleware.authed, routes.inbox.retrieve);
-app.get("/inbox/getKeys", middleware.authed, routes.inbox.getKeys);
-app.post("/inbox/send", middleware.authed, routes.inbox.send);
+app.get("/login", routes.auth.renderLogin)
+app.get("/register", routes.auth.renderRegister)
+app.post("/register", routes.auth.register)
+app.get("/login/challenge", routes.auth.challenge)
+app.post("/login/response", routes.auth.response)
+app.get("/inbox", middleware.authed, routes.inbox.render)
+app.get("/inbox/list", middleware.authed, routes.inbox.list)
+app.get("/inbox/retrieve", middleware.authed, routes.inbox.retrieve)
+app.get("/inbox/getKeys", middleware.authed, routes.inbox.getKeys)
+app.post("/inbox/send", middleware.authed, routes.inbox.send)
+app.post("/inbox/createTag", middleware.authed, routes.inbox.createTag)
+app.get("/inbox/getTags", middleware.authed, routes.inbox.getTags)
+app.post("/inbox/delete", middleware.authed, routes.inbox.delete)
+app.post("/inbox/addEmailTag", middleware.authed, routes.inbox.addTag)
+app.post("/inbox/removeEmailTag", middleware.authed, routes.inbox.removeTag)
 
 app.listen(8080);
 
