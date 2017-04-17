@@ -57,13 +57,13 @@ class SMTPConnection {
       if (!this.email.parser.pipe(data.toString())) {
         this.status = 1;
 
-        this.email.process(function(err) {
+        this.email.process((err) => {
           if (err) {
-
+            this.response(501, "Syntax error in parameters or arguments")
+          } else {
+            this.ok()
           }
         })
-
-
       }
     }
   }
