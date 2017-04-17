@@ -6,6 +6,7 @@ const log = require("./lib/log.js"),
   express = require("express"),
   session = require("express-session"),
   middleware = require("./lib/middleware.js"),
+  config = require("./config.json"),
   fs = require("fs"),
   bodyParser = require("body-parser");
 
@@ -53,4 +54,4 @@ app.listen(8080);
 
 const SMTPServer = require("./class/smtp/Server.js");
 
-var server = new SMTPServer(2500);
+var server = new SMTPServer(config.port);
