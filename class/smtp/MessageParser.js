@@ -17,6 +17,7 @@ class MessageParser {
   }
 
   pipe(data) {
+
     this.originalMessage += data
 
     if (this.originalMessage.substr(this.originalMessage.length - 5) == "\r\n.\r\n") {
@@ -28,7 +29,7 @@ class MessageParser {
   }
 
   split(data, cb) {
-    let splitData = data.split("\r\n")
+    let splitData = this.originalMessage.split("\r\n")
     let body = ""
     let headers = ""
 
@@ -42,6 +43,7 @@ class MessageParser {
   }
 
   parse(headerOnly) {
+
     this.split(this.originalMessage, (err, headers, body) => {
       this.parseHeaders(headers)
       if (!headerOnly)

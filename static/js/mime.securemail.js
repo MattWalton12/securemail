@@ -11,6 +11,7 @@ sm.mime.split = function(data, cb) {
   data.splice(0, 1)
 
   data = data.join("\r\n\r\n")
+  data = sm.mime.removeLineDots(data)
 
   cb(null, headerData, data)
 }
@@ -182,6 +183,18 @@ sm.mime.uncomment = function(data) {
   }
 
   return uncommented
+}
+
+sm.mime.removeLineDots = function(data) {
+  var lines = data.split("\r\n")
+
+  for (var i=0; i<lines.length; i++) {
+    if (lines[i][0] == ".") {
+      lines[i] = lines[i].substr(1)
+    }
+  }
+
+  return lines.join("\r\n")
 }
 
 sm.mime.decodeQuotedPrintable = function(data) {
