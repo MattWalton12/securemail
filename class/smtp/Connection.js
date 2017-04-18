@@ -5,14 +5,6 @@ const tls = require("tls"),
 
 const IncomingEmail = require("./IncomingEmail.js");
 
-/*
-  TODO:
-    - Fix STARTTLS
-    - Add RSET command
-    - Add NOOP command
-*/
-
-
 const AcceptedCommands = [
   "EHLO",
   "HELO",
@@ -20,6 +12,8 @@ const AcceptedCommands = [
   "MAIL",
   "RCPT",
   "DATA",
+  "RSET",
+  "NOOP",
   "QUIT"
 ]
 
@@ -180,6 +174,15 @@ class SMTPConnection {
     } else {
       this.response(503, "Use MAIL & RCPT first")
     }
+  }
+
+  cmd_RSET() {
+    this.email = null;
+    this.response(250, "Flushed")
+  }
+
+  cmd_NOOP() {
+    this.ok()
   }
 
   cmd_QUIT() {

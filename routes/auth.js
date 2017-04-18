@@ -98,3 +98,8 @@ exports.register = function(req, res) {
     res.json(resp);
   })
 }
+
+exports.logout = function(req, res) {
+  req.session.destroy()
+  res.redirect("/login")
+}

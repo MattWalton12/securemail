@@ -176,4 +176,6 @@ $(document).ready(function() {
 setInterval(function() {
   $("#email-view-content-html").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
   $("#email-view-content-text").css("height", $(".sm-email-view").height() - $(".sm-email-header").height() + "px")
+  $(".sm-email-list").css("height", window.innerHeight - 90 + "px")
+  $(".sm-email-view-container").css("height", window.innerHeight - 90 + "px")
 }, 100)

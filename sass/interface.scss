@@ -98,19 +98,17 @@ body, html {
 
 .sm-email-view-container {
   width:550px;
-  height:100%;
-  padding-top:80px;
+  top:80px;
   position:absolute;
   right:0px;
-  top:0px;
   box-sizing:border-box;
   overflow-x:hidden;
   padding-left:550px;
 
-  transition:padding 0.2s ease-out, width 0.2s ease-out;
+  transition:top 0.2s ease-out, width 0.2s ease-out;
 
   &.sm-extended {
-    padding-top:10px;
+    top:10px;
     width:1100px;
   }
 }
@@ -168,6 +166,13 @@ body, html {
     }
   }
 
+  .sm-email-attachments {
+    padding:8px;
+    a {
+      display:block;
+      margin-bottom:4px;
+    }
+  }
   .sm-email-content {
 
     #email-view-content-html {
@@ -213,6 +218,8 @@ body, html {
     .sm-search-input-container {
       margin-left:9px;
       padding-top:17px;
+      width:550px;
+      float:left;
     }
 
     .sm-search-input {
@@ -225,7 +232,32 @@ body, html {
       border-radius:3px;
       border:1px solid darken(#3C5C7F, 10%);
     }
+
+    .sm-top-right {
+      width:120px;
+      float:right;
+
+      a {
+        height:70px;
+        width:80px;
+        text-align:center;
+        display:block;
+        line-height:70px;
+        padding-left:10px;
+        padding-right:10px;
+        transition:background 0.2s ease-out;
+
+        color:white;
+
+        &:hover {
+          background-color:darken(#3C5C7F, 10%);
+          text-decoration:none;
+        }
+      }
+    }
   }
+
+
 
   .sm-list-overlay {
     display:none;
@@ -240,9 +272,7 @@ body, html {
   .sm-email-list {
     position:absolute;
     z-index:-1;
-    height:100%;
-    top:0;
-    padding-top:80px;
+    top:80px;
     box-sizing:border-box;
     overflow-y: scroll;
 
@@ -331,7 +361,7 @@ body, html {
         width:100%;
         white-space:nowrap;
         overflow:hidden;
-        text-overflow:elipsis;
+        text-overflow:ellipsis;
       }
 
       .sm-date {

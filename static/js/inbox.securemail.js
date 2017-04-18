@@ -74,10 +74,12 @@ sm.inbox.updateView = function(email, message, tags) {
   $(".sm-email-tags input").each(function() {
     if (tags.indexOf($(this).data("id")) > -1) {
       $(this).prop("checked", true)
+    } else {
+      $(this).prop("checked", false)
     }
   })
 
-  sm.inbox.getEmailDisplays(message, function(err, displays) {
+  sm.inbox.getEmailDisplays(message, function(err, displays, attachments) {
     if (displays[0]) {
       if (displays[0].type == "text/plain") {
         $("#email-view-content-html").hide()
@@ -100,6 +102,13 @@ sm.inbox.updateView = function(email, message, tags) {
         })
 
       }
+    }
+
+    $(".sm-email-attachments a").remove()
+
+    for (var i=0; i<attachments.length; i++) {
+      var html = "<a href='data:application/octet-stream;base64," + attachments[i].data + "' target='_blank' download='" + attachments[i].filename + "'>" + attachments[i].filename + "</a>"
+      $(".sm-email-attachments").append(html)
     }
   })
 
@@ -131,6 +140,7 @@ sm.inbox.shrinkView = function() {
 sm.inbox.prompt = function(cb) {
   $(".sm-main").hide();
   $(".sm-content-loader").hide();
+  $(".sm-sidebar").hide();
 
   $(".sm-password-prompt-container").fadeIn();
   sm.inbox.promptFunction = cb;
@@ -140,6 +150,7 @@ sm.inbox.promptSubmit = function(password) {
   $(".sm-password-prompt-container").fadeOut(function() {
     sessionStorage.setItem("sm_password", password);
     if (sm.inbox.promptFunction) {
+      $(".sm-sidebar").show()
       sm.inbox.promptFunction(password);
     }
   })
@@ -159,7 +170,7 @@ var preferredTypes = ["text/html", "text/plain"]
 sm.inbox.getEmailDisplays = function(data, callback) {
   sm.mime.process(data, function(err, data) {
     var displays = []
-
+    var attachments = []
 
     function recursiveSearch(obj, cb) {
       if (obj.children) {
@@ -179,8 +190,25 @@ sm.inbox.getEmailDisplays = function(data, callback) {
         go()
 
       } else {
-        if (obj.headers["content-disposition"] && obj.headers["content-disposition"] != "inline") {
-          return cb()
+        if (obj.headers["content-disposition"]) {
+          var disposition = obj.headers["content-disposition"].split(";")
+
+          if (disposition[0].trim().toLowerCase() == "attachment") {
+
+            var filename = "attachment_" + (attachments.length + 1)
+
+            if (disposition[1] && disposition[1].toLowerCase().indexOf("filename=") > -1) {
+              filename = disposition[1].toLowerCase().split("filename=")[1].replace(new RegExp("\"", "g"), "")
+            }
+
+            attachments.push({
+              type: obj.headers["content-type"],
+              filename: filename,
+              data: btoa(obj.body)
+            })
+
+            return cb()
+          }
         }
 
         if (!obj.body || !obj.headers["content-type"]) {
@@ -211,7 +239,7 @@ sm.inbox.getEmailDisplays = function(data, callback) {
         }
       })
 
-      callback(null, displays)
+      callback(null, displays, attachments)
     })
   })
 }

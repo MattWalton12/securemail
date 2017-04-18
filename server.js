@@ -39,7 +39,12 @@ app.use(function(req, res, next) {
   }
 });
 
+app.get("/", function(req, res) {
+  res.redirect("/inbox")
+})
+
 app.get("/login", routes.auth.renderLogin)
+app.get("/logout", middleware.authed, routes.auth.logout)
 app.get("/register", routes.auth.renderRegister)
 app.post("/register", routes.auth.register)
 app.get("/login/challenge", routes.auth.challenge)
