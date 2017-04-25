@@ -1,4 +1,4 @@
-const User = require("./../lib/user.js");
+const User = require("./../class/User.js");
 
 exports.renderLogin = function(req, res) {
   if (req.session.authenticated) {
@@ -24,8 +24,6 @@ exports.challenge = function(req, res) {
     user.generateLoginChallenge(username, function(err, token, challenge) {
       var resp = {};
 
-      console.log(user);
-
       if (challenge) {
         resp = {
           status: "success",
@@ -50,7 +48,6 @@ exports.challenge = function(req, res) {
 exports.response = function(req, res) {
   if (req.body.user) {
     let user = new User()
-    console.log(req.body.user);
 
     user.load(parseInt(req.body.user), (err, done) => {
       if (err || !done) {

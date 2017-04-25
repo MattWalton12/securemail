@@ -64,7 +64,6 @@ sm.crypto.rsaDecrypt = function(privateKey, data, cb) {
 
 sm.crypto.aesDecrypt = function(key, encrypted, cb) {
   var rawData = forge.util.decode64(encrypted);
-  console.log("encrypted hash", sm.crypto.md5(rawData));
 
   var decipher = forge.cipher.createDecipher("AES-CBC", forge.util.decode64(key.key));
   decipher.start({iv: forge.util.createBuffer(forge.util.decode64(key.iv))});
@@ -76,13 +75,9 @@ sm.crypto.aesDecrypt = function(key, encrypted, cb) {
 }
 
 sm.crypto.decrypt = function(privateKey, data, dataKey, cb) {
-  console.log("decrypting it")
   sm.crypto.rsaDecrypt(privateKey, dataKey, function(err, key) {
     if (key) {
       key = JSON.parse(key);
-
-      console.log("key parsed")
-      console.log(key)
 
       sm.crypto.aesDecrypt(key, data, function(err, message) {
         if (message) {

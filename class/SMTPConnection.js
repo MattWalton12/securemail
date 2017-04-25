@@ -1,7 +1,8 @@
 const tls = require("tls"),
   fs = require("fs"),
-  util = require("./../../lib/util.js"),
-  config = require("./../../config.json")
+  dns = require("dns"),
+  util = require("./../lib/util.js"),
+  config = require("./../config.json")
 
 const IncomingEmail = require("./IncomingEmail.js");
 
@@ -83,12 +84,20 @@ class SMTPConnection {
 
   cmd_EHLO(params) {
     if (params.length > 0) {
-      this.writeLine("250-SIZE 100000");
-      //this.writeLine("250-STARTTLS");
-      this.writeLine("250-HELP");
-      this.response(250, config.domain + " ready");
+      let reverseIP = this._socket.remoteAddress.split(".").reverse().join(".")
 
-      this.domain = params[0];
+      dns.resolve(reverseIP + "." + config.DNSBLServer, "A", (err) => {
+        if (err) {
+          this.writeLine("250-SIZE 100000");
+          //this.writeLine("250-STARTTLS");
+          this.writeLine("250-HELP");
+          this.response(250, config.domain + " ready");
+
+          this.domain = params[0];
+        } else {
+          this.response(501, "Your IP is listed as a potential spammer, closing connection")
+        }
+      });
 
     } else {
       this.response(501, "Invalid domain specified, closing connection");
@@ -107,7 +116,6 @@ class SMTPConnection {
       server: this._server.server,
 
       SNICallback: function(servername, cb) {
-        console.log(servername, "SNI")
       }
     })
 
@@ -140,10 +148,15 @@ class SMTPConnection {
       this.response(501, "Invalid from parameters")
     } else {
 
-      this.email = new IncomingEmail()
-      this.email.setSender(util.processAddress(paramSplit[1].trim()))
+      let addr = util.processAddress(paramSplit[1].trim())
+      if (addr.address) {
+        this.email = new IncomingEmail()
+        this.email.setSender(addr)
 
-      this.ok()
+        this.ok()
+      } else {
+        this.response(501, "Invalid from parameters")
+      }
     }
   }
 

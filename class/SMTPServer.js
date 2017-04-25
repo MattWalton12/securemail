@@ -1,8 +1,8 @@
 const net = require("net"),
   tls = require("tls"),
   fs = require("fs"),
-  log = require("./../../lib/log.js"),
-  SMTPConnection = require("./Connection.js");
+  log = require("./../lib/log.js"),
+  SMTPConnection = require("./SMTPConnection.js");
 
 class SMTPServer {
   handler(socket) {
@@ -13,8 +13,8 @@ class SMTPServer {
 
     let secureContext = new Map();
     secureContext.set("default", {
-      key: fs.readFileSync("securemail.pem").toString(),
-      cert: fs.readFileSync("securemail-cert.pem").toString(),
+      key: fs.readFileSync("keys/securemail.pem").toString(),
+      cert: fs.readFileSync("keys/securemail-cert.pem").toString(),
       honorCipherOrder: true,
       requestOCSP: true
     });

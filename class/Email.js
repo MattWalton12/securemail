@@ -6,8 +6,8 @@ const util = require("./../lib/util.js"),
   config = require("./../config.json"),
   fs = require("fs")
 
-const MessageBuilder = require("./smtp/MessageBuilder.js"),
-  SMTPClient = require("./smtp/Client.js")
+const MessageBuilder = require("./MessageBuilder.js"),
+  SMTPClient = require("./SMTPClient.js")
 
 class Email {
   constructor() {

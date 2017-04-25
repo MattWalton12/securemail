@@ -58,4 +58,5 @@ typings/
 .sass-cache/
 
 email_store/
+training_data/
 config.json

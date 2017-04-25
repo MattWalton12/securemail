@@ -1,6 +1,6 @@
-const database = require("./database.js"),
-  log = require("./log.js"),
-  crypto = require("./crypto.js"),
+const database = require("./../lib/database.js"),
+  log = require("./../lib/log.js"),
+  crypto = require("./../lib/crypto.js"),
   fs = require("fs"),
   forge = require("node-forge");
 

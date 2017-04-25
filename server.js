@@ -8,19 +8,22 @@ const log = require("./lib/log.js"),
   middleware = require("./lib/middleware.js"),
   config = require("./config.json"),
   fs = require("fs"),
+  spam = require("./lib/spam.js"),
   bodyParser = require("body-parser");
 
 const routes = require("./routes");
 
-log.info("starting email server")
+log.info("Starting SecureMail email server")
 
-database.connect();
+database.connect(function() {
+  spam.load()
+})
 
-const User = require("./lib/user.js");
+const User = require("./class/User.js");
 let app = express();
 
 app.use(session({
-  secret: "ollieisgay",
+  secret: "verysecuresessionsecret",
   cookie: {secure: false}
 }));
 
@@ -57,11 +60,12 @@ app.post("/inbox/send", middleware.authed, routes.inbox.send)
 app.post("/inbox/createTag", middleware.authed, routes.inbox.createTag)
 app.get("/inbox/getTags", middleware.authed, routes.inbox.getTags)
 app.post("/inbox/delete", middleware.authed, routes.inbox.delete)
+app.post("/inbox/markSpam", middleware.authed, routes.inbox.markSpam)
 app.post("/inbox/addEmailTag", middleware.authed, routes.inbox.addTag)
 app.post("/inbox/removeEmailTag", middleware.authed, routes.inbox.removeTag)
 
 app.listen(8080);
 
-const SMTPServer = require("./class/smtp/Server.js");
+const SMTPServer = require("./class/SMTPServer.js");
 
 var server = new SMTPServer(config.port);

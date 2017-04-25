@@ -534,3 +534,11 @@ body, html {
 .sm-email-tags input {
   margin-right: 8px;
 }
+/* line 499, ../../sass/interface.scss */
+.sm-email-tags .sm-btn {
+  display: block;
+  width: 200px;
+  background-color: #FF7B79;
+  color: black;
+  margin-top: 10px;
+}

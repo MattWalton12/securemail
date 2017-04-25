@@ -1,9 +1,10 @@
-const User = require("./../../lib/user.js"),
-  log = require("./../../lib/log.js"),
-  util = require("./../../lib/util.js"),
-  config = require("./../../config.json"),
+const User = require("./User.js"),
+  log = require("./../lib/log.js"),
+  util = require("./../lib/util.js"),
+  spam = require("./../lib/spam.js"),
+  config = require("./../config.json"),
   MessageParser = require("./MessageParser.js"),
-  Email = require("./../Email.js")
+  Email = require("./Email.js")
 
 
 let idCounter = 0;
@@ -19,24 +20,35 @@ class IncomingEmail extends Email {
   addRecipient(recipient, cb) {
 
     recipient = util.processAddress(recipient)
-    let address = recipient.address.split("@")
+    if (recipient.address) {
+      let address = recipient.address.split("@")
 
-    let username = address[0]
-    let domain = address[1];
+      let username = address[0]
+      let domain = address[1];
 
-    if (domain == config.domain) {
-      let user = new User()
-      user.load(username, (err, exists) => {
-        if (exists) {
-          this.recipients.push(user);
-          cb()
+      if (domain == config.domain) {
+        let user = new User()
+        user.load(username, (err, exists) => {
+          if (exists) {
+            this.recipients.push(user);
+            cb()
 
-        } else {
-          cb(new Error("user not found"));
-        }
-      })
+          } else {
+            cb(new Error("user not found"));
+          }
+        })
+      } else {
+        cb(new Error("user not found"));
+      }
     } else {
-      cb(new Error("user not found"));
+      cb(new Error("Invalid email address"))
+    }
+  }
+
+  setSendingServer(domain, ip) {
+    this.sendingServer = {
+      ip: ip,
+      domain: domain
     }
   }
 
@@ -59,7 +71,10 @@ class IncomingEmail extends Email {
           let indEmail = new IncomingEmail()
           Object.assign(indEmail, this)
           indEmail.user = this.recipients[i]
-          indEmail.save(function(err, id) {
+          indEmail.save((err, id) => {
+
+            spam.process(this.data, id, this.meta.from.address, indEmail.user.id)
+
             cb(null, id)
           });
         }

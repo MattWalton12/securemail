@@ -1,5 +1,6 @@
 const email = require("./../lib/email.js"),
   crypto = require("./../lib/crypto.js"),
+  spam = require("./../lib/spam.js"),
   config = require("./../config.json")
 
 const Email = require("./../class/Email.js")
@@ -204,6 +205,31 @@ exports.delete = function(req, res) {
     res.json({
       status: "error",
       error: "Please enter an ID to delete"
+    })
+  }
+}
+
+exports.markSpam = function(req, res) {
+  let id = req.body.id
+
+  if (id) {
+    spam.mark(req.user.id, id, function(err) {
+      if (err) {
+        res.json({
+          status: "error",
+          error: err.message
+        })
+      } else {
+        res.json({
+          status: "success"
+        })
+      }
+    })
+
+  } else {
+    res.json({
+      status: "error",
+      error: "Please enter an ID to mark"
     })
   }
 }

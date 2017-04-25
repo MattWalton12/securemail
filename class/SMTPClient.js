@@ -1,7 +1,7 @@
 const net = require("net"),
   tls = require("tls"),
   dns = require("dns"),
-  log = require("./../../lib/log.js")
+  log = require("./../lib/log.js")
 
 const MessageBuilder = require("./MessageBuilder.js")
 

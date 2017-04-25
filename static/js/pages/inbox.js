@@ -104,12 +104,18 @@ $(document).ready(function() {
 
   $("#sm-page-sent").click(function(e) {
     e.preventDefault()
+    sm.inbox.search = ""
+    $("#search-input").val(sm.inbox.search)
+    sm.inbox.index = 0
     sm.inbox.type = 2
     updateEmails(true)
   })
 
   $("#sm-page-inbox").click(function(e) {
     e.preventDefault()
+    sm.inbox.search = ""
+    $("#search-input").val(sm.inbox.search)
+    sm.inbox.index = 0
     sm.inbox.type = 1
     updateEmails(true)
   })
@@ -171,6 +177,19 @@ $(document).ready(function() {
 
   $(".sm-email-tags").click(function(e) {
     e.stopPropagation()
+  })
+
+  $("#sm-page-spam").click(function(e) {
+    e.preventDefault()
+    sm.inbox.search = "tag:spam"
+    $("#search-input").val(sm.inbox.search)
+    sm.inbox.index = 0
+    updateEmails(true, true)
+  })
+
+  $("#email-mark-spam").click(function(e) {
+    e.preventDefault()
+    sm.inbox.markSpam(sm.inbox.currentMessage.id)
   })
 })
 setInterval(function() {

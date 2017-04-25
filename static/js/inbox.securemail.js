@@ -355,3 +355,17 @@ sm.inbox.delete = function(id) {
     }
   }, "json")
 }
+
+sm.inbox.markSpam = function(id) {
+  $.post("/inbox/markSpam", {
+    id: id
+  }, function(res) {
+    if (res.status == "success") {
+      $("#email-" + id).remove()
+      sm.inbox.shrinkView()
+      $(".sm-email-view-container").css("padding-left", "550px")
+    } else {
+      alert("Failed to mark message: " + res.error)
+    }
+  }, "json")
+}

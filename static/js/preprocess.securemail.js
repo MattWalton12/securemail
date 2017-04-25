@@ -63,9 +63,7 @@ sm.pp.stripClassesEvents = function(data) {
 sm.pp.processHTML = function(data) {
   data = $.parseHTML(data)
 
-  console.log(data);
   data = sm.pp.stripElements(data)
   data = sm.pp.stripClassesEvents(data)
 
-  console.log(data)
 }

@@ -67,8 +67,6 @@ sm.users.register = function(username, password, cb) {
         privateKey: encryptedPrivate
       }
 
-      console.log(postData);
-
       $.ajax("/register", {
         data: JSON.stringify(postData),
         contentType: "application/json",
